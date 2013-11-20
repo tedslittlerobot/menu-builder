@@ -1,7 +1,6 @@
 <?php namespace Tlr\Menu\Laravel;
 
-use Menu\Laravel\MenuItem;
-use Menu\MenuRepository as Repository;
+use Tlr\Menu\MenuRepository as Repository;
 use Illuminate\Foundation\Application;
 
 class MenuRepository extends Repository {

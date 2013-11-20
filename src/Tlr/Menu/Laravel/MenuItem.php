@@ -1,11 +1,11 @@
 <?php namespace Tlr\Menu\Laravel;
 
 use View;
-use Menu\MenuItem as Item;
+use Tlr\Menu\MenuItem as Item;
 
 class MenuItem extends Item {
 
-	protected $view = 'menu.main';
+	protected $view = 'menu::main';
 
 	public function setView( $view )
 	{
@@ -16,7 +16,7 @@ class MenuItem extends Item {
 
 	public function render()
 	{
-		return View::make('menu.main')
+		return View::make( $this->view )
 			->with( 'menu', $this );
 	}
 
