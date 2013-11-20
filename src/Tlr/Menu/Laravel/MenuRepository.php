@@ -15,7 +15,7 @@ class MenuRepository extends Repository {
 
 	public function add( $key )
 	{
-		return $this->menus[ $key ] = $this->app->make( 'Menu\Laravel\MenuItem' );
+		return $this->menus[ $key ] = $this->app['menu-item'];
 	}
 
 }
