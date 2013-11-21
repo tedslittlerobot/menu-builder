@@ -1,6 +1,6 @@
 <?php namespace Tlr\Menu;
 
-use Menu\MenuItem;
+use Tlr\Menu\MenuItem;
 
 class MenuRepository {
 
