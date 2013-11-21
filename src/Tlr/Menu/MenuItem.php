@@ -163,10 +163,57 @@ class MenuItem implements ArrayAccess {
 		unset( $this->properties[ $key ] );
 	}
 
+	/**
+	 * Manually set the active state of the item
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @param  boolean  $value
+	 * @return $this
+	 */
+	public function setActive( $value = true )
+	{
+		$this->active = $value;
+
+		return $this;
+	}
+
+	/**
+	 * Match if given value matches the property
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @param  string   $value
+	 * @param  string   $key
+	 * @return $this
+	 */
+	public function activate( $value, $key = 'link' )
+	{
+		if ( $this->getProperty( $key ) === $value )
+		{
+			$this->setActive();
+		}
+		else
+		{
+			$this->setActive( null );
+		}
+
+		foreach ($this->items as $item) {
+			$item->activate( $value, $key );
+		}
+
+		return $this;
+	}
+
+	/**
+	 * Determine if the menuitem is active
+	 *
+	 * If the active property is null (ie. hasn't been set by anything),
+	 * it will test its children to bubble their state up the chain
+	 *
+	 * @author Stef Horner       (shorner@wearearchitect.com)
+	 * @return boolean
+	 */
 	public function isActive()
 	{
-		if ( $this->active === true )
-			return true;
+		if ( !is_null( $this->active ) )
+			return $this->active;
 
 		foreach ( $this->items as $item )
 		{
@@ -175,23 +222,6 @@ class MenuItem implements ArrayAccess {
 		}
 
 		return false;
-	}
-
-	public function setActive( $value = true )
-	{
-		$this->active = $value;
-
-		return $this;
-	}
-
-	public function activate( $value, $key = 'link' )
-	{
-		if ( $this->getProperty( $key ) == $value )
-		{
-			$this->setActive();
-		}
-
-		return $this;
 	}
 
 }

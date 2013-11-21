@@ -13,16 +13,6 @@ class MenuRepositoryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test for self
-	 *
-	 * @return void
-	 */
-	public function testSelfReceipt()
-	{
-		$this->assertEquals( $this->repo, $this->repo->getRepository() );
-	}
-
-	/**
 	 * A basic functional test example.
 	 *
 	 * @return void
