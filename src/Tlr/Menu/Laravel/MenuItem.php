@@ -5,8 +5,17 @@ use Tlr\Menu\MenuItem as Item;
 
 class MenuItem extends Item {
 
+	/**
+	 * The view to use for rendering
+	 * @var string
+	 */
 	protected $view = 'menu::main';
 
+	/**
+	 * Set the render view
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @param  string   $view
+	 */
 	public function setView( $view )
 	{
 		$this->view = $view;
@@ -14,6 +23,11 @@ class MenuItem extends Item {
 		return $this;
 	}
 
+	/**
+	 * Render the menu
+	 * @author Stef Horner       (shorner@wearearchitect.com)
+	 * @return Illuminate\View\View
+	 */
 	public function render()
 	{
 		return View::make( $this->view )

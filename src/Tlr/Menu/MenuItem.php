@@ -13,22 +13,50 @@ use ArrayAccess;
  */
 class MenuItem implements ArrayAccess {
 
-	protected $active = false;
+	/**
+	 * Is the current item active
+	 * @var boolean
+	 */
+	protected $active;
 
+	/**
+	 * Submenu Items
+	 * @var array
+	 */
 	protected $items = array();
 
+	/**
+	 * Render Properties
+	 * @var array
+	 */
 	protected $properties = array();
 
+	/**
+	 * Element Attributes
+	 * @var array
+	 */
 	protected $attributes = array();
 
 	public function __construct( $properties = array() ) {
 		$this->properties = $properties;
 	}
 
+	/**
+	 * Get the sub menu items
+	 * @author Stef Horner       (shorner@wearearchitect.com)
+	 * @return array
+	 */
 	public function getItems() {
 		return $this->items;
 	}
 
+	/**
+	 * Get the given item, creating a new one if it doesn't exist
+	 * @author Stef Horner     (shorner@wearearchitect.com)
+	 * @param  string   $key
+	 * @param  array    $properties
+	 * @return Tlr\Menu\MenuItem
+	 */
 	public function item( $key, $properties = array() ) {
 		if ( isset( $this->items[ $key ] ) )
 			return $this->items[ $key ];
@@ -36,17 +64,35 @@ class MenuItem implements ArrayAccess {
 		return $this->addItem( $key, $properties );
 	}
 
+	/**
+	 * Get the items attributes for HTML rendering
+	 * @author Stef Horner       (shorner@wearearchitect.com)
+	 * @return array
+	 */
 	public function getAttributes()
 	{
 		return $this->attributes;
 	}
 
+	/**
+	 * Batch set the item's attributes
+	 * @author Stef Horner     (shorner@wearearchitect.com)
+	 * @param  array   $attributes
+	 * @param  boolean  $merge whether or not to merge the arrays
+	 * @return $this
+	 */
 	public function setAttributes( $attributes, $merge = false )
 	{
-		$this->attributes = ( $merge ? array_merge($this->attributes, $attributes) : $attributes );
+		$this->attributes = ( $merge ? array_merge($this->attributes, (array) $attributes) : (array) $attributes );
 		return $this;
 	}
 
+	/**
+	 * Set an individual attribute
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @param  string   $key
+	 * @param  mixed   $value
+	 */
 	public function addAttribute( $key, $value )
 	{
 		$this->attributes[ $key ] = $value;
@@ -54,30 +100,49 @@ class MenuItem implements ArrayAccess {
 		return $this;
 	}
 
+	/**
+	 * Get the element's rendering properties
+	 * @author Stef Horner       (shorner@wearearchitect.com)
+	 * @return array
+	 */
 	public function getProperties( ) {
 		return $this->properties;
 	}
 
+	/**
+	 * Create a new item and add it as a sub item, overwriting any
+	 * that already exist
+	 * @author Stef Horner     (shorner@wearearchitect.com)
+	 * @param  string   $key
+	 * @param  array    $properties
+	 */
 	public function addItem( $key, $properties = array() ) {
-		$properties = array_merge( [ 'title' => $key ], $properties );
+		$properties = array_merge( array( 'title' => $key ), $properties );
 
 		return $this->items[ $key ] = new MenuItem( $properties );
 	}
 
+	/**
+	 * Get an individual property
+	 * @author Stef Horner   (shorner@wearearchitect.com)
+	 * @param  string   $property
+	 * @param  mixed  $default
+	 * @return mixed
+	 */
 	public function getProperty( $property, $default = false ) {
 		return isset( $this->properties[ $property ] ) ? $this->properties[ $property ] : $default;
 	}
 
+	/**
+	 * Set an individual property
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @param  string   $key
+	 * @param  mixed   $value
+	 * @return $this
+	 */
 	public function setProperty( $key, $value ) {
 		$this->properties[ $key ] = $value;
-	}
-
-	public function render() {
-		return 'MENU';
-	}
-
-	public function __toString() {
-		return (string) $this->render();
+		return $this;
 	}
 
 	/// ARRAY ACCESS ///
