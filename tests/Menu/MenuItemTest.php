@@ -1,11 +1,12 @@
 <?php
 
 use Mockery as m;
-use Menu\MenuItem;
+use Tlr\Menu\MenuItem;
 
-class MenuItemTest extends TestCase {
+class MenuItemTest extends PHPUnit_Framework_TestCase {
 
-	public function setUp() {
+	public function setUp()
+	{
 		parent::setUp();
 
 		$this->properties = array(
@@ -14,6 +15,13 @@ class MenuItemTest extends TestCase {
 		);
 
 		$this->menu = new MenuItem($this->properties);
+	}
+
+	public function tearDown()
+	{
+		parent::tearDown();
+
+		m::close();
 	}
 
 	/**
@@ -93,26 +101,6 @@ class MenuItemTest extends TestCase {
 		$this->assertEquals( 'peter', $this->menu['test'] );
 
 		$this->assertEquals( false, $this->menu['sony'] );
-	}
-
-	/**
-	 * Test renderisation
-	 *
-	 * @return void
-	 */
-	public function testRender()
-	{
-		$view = m::mock();
-
-		View::shouldReceive('make')
-			->once()
-			->andReturn( $view );
-		$view->shouldReceive('with')
-			->once()
-			->withArgs( array( 'menu', $this->menu ) )
-			->andReturn( $view );
-
-		$this->assertEquals( $view, $this->menu->render() );
 	}
 
 	/**
@@ -202,5 +190,47 @@ class MenuItemTest extends TestCase {
 
 		$this->assertEquals( $attributes, $this->menu->getAttributes() );
 	}
+
+	public function testActiveIsInitiallyFalse()
+	{
+		$this->assertFalse( $this->menu->isActive() );
+	}
+
+	public function testSetActive()
+	{
+		$this->menu->setActive();
+
+		$this->assertTrue( $this->menu->isActive() );
+
+		$this->menu->setActive( 'eric' );
+
+		$this->assertEquals( 'eric', $this->menu->isActive() );
+	}
+
+	public function testActivateMatcher()
+	{
+		$this->menu->setProperty( 'link', 'woop' );
+
+		$this->menu->activate( 'woop' );
+
+		$this->assertTrue( $this->menu->isActive() );
+
+		$this->menu->activate( 'eric' );
+
+		$this->assertFalse( $this->menu->isActive() );
+	}
+
+	public function testRecursiveActivation()
+	{
+		$item = $this->menu->item('sub');
+
+		$item->setProperty( 'link', 'foo' );
+
+		$this->menu->activate( 'foo' );
+
+		$this->assertTrue( $this->menu->isActive() );
+
+	}
+
 
 }

@@ -1,10 +1,10 @@
 <?php
 
 use Mockery as m;
-use Menu\MenuRepository;
-use Menu\MenuItem;
+use Tlr\Menu\MenuRepository;
+use Tlr\Menu\MenuItem;
 
-class MenuRepositoryTest extends TestCase {
+class MenuRepositoryTest extends PHPUnit_Framework_TestCase {
 
 	public function setUp() {
 		parent::setUp();
@@ -31,7 +31,7 @@ class MenuRepositoryTest extends TestCase {
 	{
 		$menu = $this->repo->menu('woop');
 
-		$this->assertEquals( 'Menu\MenuItem', get_class($menu) );
+		$this->assertEquals( 'Tlr\Menu\MenuItem', get_class($menu) );
 	}
 
 	/**
