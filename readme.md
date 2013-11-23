@@ -27,6 +27,12 @@ Until it's on packagist, you can install it using composer's [standard VCS featu
 }
 ```
 
+Once it's up on packagist, you can simply call
+
+```bash
+composer require tlr/menu "1.0.*"
+````
+
 ### Basic Usage
 
 Get a new MenuRespository, and make a main nav menu
