@@ -29,7 +29,7 @@
 
 		<ul>
 			@foreach( $item->getItems() as $item )
-				{{ View::make('menu.item')->with('item', $item) }}
+				{{ View::make('menu::item')->with('item', $item) }}
 			@endforeach
 		</ul>
 
