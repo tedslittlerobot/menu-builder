@@ -6,8 +6,7 @@ use ArrayAccess;
  * $key = 'Home';
  * $properties = [
  * 	'title' => 'Menu Title', // defaults to $key
- * 	'link' => 'http://boobs.com',
- * 	'class' => 'woop',
+ * 	'link' => 'http://eric.com'
  * ];
  * $menu->addItem( $key, $properties )
  */
