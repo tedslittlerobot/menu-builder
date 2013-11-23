@@ -1,14 +1,7 @@
 
-<?php /**
- * @TODO
- * - use element property, defaulting to a
- * - if element is not a, do not use link
- * - get attributes for li, implode with space
- * - if ( $item->isActive() ), add active to class
- */ ?>
-{{ HTML::element( 'li', $item->getAttributes() ) }}
+{{ HTML::element( 'li', $item->getOutputAttributes() ) }}
 
-	{{ HTML::element( $item->getProperty('element', 'a'), $item->getAttributes(), $item['title'] ) }}
+	{{ HTML::element( $item->getProperty('element', 'a'), $item->getElementAttributes(), $item['title'] ) }}
 
 	@if( $item->getItems() )
 
