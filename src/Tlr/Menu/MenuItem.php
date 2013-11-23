@@ -59,12 +59,13 @@ class MenuItem implements ArrayAccess {
 	 * @param  array    $properties
 	 * @return Tlr\Menu\MenuItem
 	 */
-	public function item( $key, $properties = array() )
+	public function item( $key, $properties = array(), $attributes = array() )
 	{
 		if ( isset( $this->items[ $key ] ) )
 			return $this->items[ $key ];
 
-		return $this->addItem( $key, $properties );
+		return $this->addItem( $key, $properties, $attributes );
+	}
 
 	/**
 	 * Create a new item and add it as a sub item, overwriting any
