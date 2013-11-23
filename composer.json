@@ -19,6 +19,9 @@
         }
     },
     "minimum-stability": "dev",
+    "suggest": {
+        "tlr/laravel-utils": "If you are using laravel, this has some useful utilities that are used by this"
+    }
     "require-dev": {
         "mockery/mockery": "dev-master"
     }
