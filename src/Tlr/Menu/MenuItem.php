@@ -117,6 +117,10 @@ class MenuItem implements ArrayAccess {
 	 * @param  array    $properties
 	 */
 	public function addItem( $key, $properties = array() ) {
+		// if $properties is a strink, use that as the link property
+		if ( is_string( $properties ) )
+			$properties = array( 'link' => $properties )
+
 		$properties = array_merge( array( 'title' => $key ), $properties );
 
 		return $this->items[ $key ] = new MenuItem( $properties );
