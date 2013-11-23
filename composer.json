@@ -2,6 +2,7 @@
     "name": "tlr/menu",
     "description": "Take some of the stress and boilerplate out of building menus (or indeed any list, because that's basically what a menu is) With support for laravel",
     "keywords": ["laravel","menu","list"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Stef Horner",
