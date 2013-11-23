@@ -65,6 +65,14 @@ class MenuItem implements ArrayAccess {
 			return $this->items[ $key ];
 
 		return $this->addItem( $key, $properties );
+	/**
+	 * A function to allow for easy subclassing
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @return Tlr\MenuItem
+	 */
+	protected function getNewItem( $properties = array(), $attributes = array() )
+	{
+		return new MenuItem( $properties, $attributes );
 	}
 
 	/**
