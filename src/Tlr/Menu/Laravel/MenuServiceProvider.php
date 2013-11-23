@@ -6,7 +6,10 @@ use Tlr\Menu\Laravel\MenuItem;
 
 class MenuServiceProvider extends ServiceProvider {
 
-	public function boot() {
+	public function boot()
+	{
+		$this->package('tlr/menu');
+
 		$this->app['view']->composer( 'menu.item', 'Tlr\Menu\Laravel\MenuItemComposer' );
 	}
 
@@ -24,6 +27,16 @@ class MenuServiceProvider extends ServiceProvider {
 		$this->app['menu-item'] = $this->app->share( function( $app ) {
 			return new MenuItem( $app );
 		} );
+	}
+
+	/**
+	 * Guess the package path for the provider.
+	 *
+	 * @return string
+	 */
+	public function guessPackagePath()
+	{
+		return realpath( parent::guessPackagePath().'/../' );
 	}
 
 }
