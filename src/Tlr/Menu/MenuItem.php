@@ -25,20 +25,21 @@ class MenuItem implements ArrayAccess {
 	protected $items = array();
 
 	/**
-	 * Render Properties
+	 * Render Properties (for the link element)
 	 * @var array
 	 */
 	protected $properties = array();
 
 	/**
-	 * Element Attributes
+	 * Element Attributes for the list item
 	 * @var array
 	 */
 	protected $attributes = array();
 
-	public function __construct( $properties = array() )
+	public function __construct( $properties = array(), $attributes = array() )
 	{
 		$this->setProperties( $properties );
+		$this->setAttributes( $attributes );
 	}
 
 	/**
