@@ -39,7 +39,7 @@ class MenuItem implements ArrayAccess {
 
 	public function __construct( $properties = array() )
 	{
-		$this->properties = $properties;
+		$this->setProperties( $properties );
 	}
 
 	/**
@@ -72,9 +72,9 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getAttributes()
+	public function getAttributes( $overwrite = array() )
 	{
-		return $this->attributes;
+		return array_merge($this->attributes, $overwrite);
 	}
 
 	/**
@@ -122,13 +122,18 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function addItem( $key, $properties = array() )
 	{
-		// if $properties is a strink, use that as the link property
+		$item = $this->items[ $key ] = new MenuItem;
+
+		// if $properties is a string, use that as the href attribute
 		if ( is_string( $properties ) )
-			$properties = array( 'link' => $properties );
+		{
+			$item->addAttribute( 'href', $properties );
+			$properties = array();
+		}
 
-		$properties = array_merge( array( 'title' => $key ), $properties );
+		$item->setProperties( array_merge( array( 'title' => $key ), $properties ) );
 
-		return $this->items[ $key ] = new MenuItem( $properties );
+		return $item;
 	}
 
 	/**
@@ -154,6 +159,11 @@ class MenuItem implements ArrayAccess {
 	{
 		$this->properties[ $key ] = $value;
 		return $this;
+	}
+
+	public function setProperties( $properties )
+	{
+		$this->properties = $properties;
 	}
 
 	/// ARRAY ACCESS ///

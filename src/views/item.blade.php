@@ -1,11 +1,4 @@
 
-<?php
-	$classstring = '';
-?>
-
-@if( $item['class'] )
-	<?php $classstring = ' class="' . implode(' ', $item['class'] ). '"'; ?>
-@endif
 <?php /**
  * @TODO
  * - use element property, defaulting to a
@@ -13,17 +6,9 @@
  * - get attributes for li, implode with space
  * - if ( $item->isActive() ), add active to class
  */ ?>
-<li{{ $classstring }}>
+{{ HTML::element( 'li', $item->getAttributes() ) }}
 
-	@if( $item['link'] )
-		<a href="{{ $item['link'] }}">
-	@endif
-
-		{{ $item['title'] }}
-
-	@if( $item['link'] )
-		</a>
-	@endif
+	{{ HTML::element( $item->getProperty('element', 'a'), $item->getAttributes(), $item['title'] ) }}
 
 	@if( $item->getItems() )
 
