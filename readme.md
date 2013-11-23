@@ -1,6 +1,9 @@
 Menu Builder
 ============
 
+> An attempt to take a bit of the stress and boilerplate out of building menus (or indeed any list, because that's basically what a menu is)
+> Comes with support for Laravel 4 (other frameworks to follow)
+
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Managing Multiple Menus](#managing-multiple-menus)
