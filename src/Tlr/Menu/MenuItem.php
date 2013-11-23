@@ -37,7 +37,8 @@ class MenuItem implements ArrayAccess {
 	 */
 	protected $attributes = array();
 
-	public function __construct( $properties = array() ) {
+	public function __construct( $properties = array() )
+	{
 		$this->properties = $properties;
 	}
 
@@ -46,7 +47,8 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getItems() {
+	public function getItems()
+	{
 		return $this->items;
 	}
 
@@ -57,7 +59,8 @@ class MenuItem implements ArrayAccess {
 	 * @param  array    $properties
 	 * @return Tlr\Menu\MenuItem
 	 */
-	public function item( $key, $properties = array() ) {
+	public function item( $key, $properties = array() )
+	{
 		if ( isset( $this->items[ $key ] ) )
 			return $this->items[ $key ];
 
@@ -105,7 +108,8 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getProperties( ) {
+	public function getProperties( )
+	{
 		return $this->properties;
 	}
 
@@ -116,7 +120,8 @@ class MenuItem implements ArrayAccess {
 	 * @param  string   $key
 	 * @param  array    $properties
 	 */
-	public function addItem( $key, $properties = array() ) {
+	public function addItem( $key, $properties = array() )
+	{
 		// if $properties is a strink, use that as the link property
 		if ( is_string( $properties ) )
 			$properties = array( 'link' => $properties )
@@ -133,7 +138,8 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	public function getProperty( $property, $default = false ) {
+	public function getProperty( $property, $default = false )
+	{
 		return isset( $this->properties[ $property ] ) ? $this->properties[ $property ] : $default;
 	}
 
@@ -144,26 +150,31 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed   $value
 	 * @return $this
 	 */
-	public function setProperty( $key, $value ) {
+	public function setProperty( $key, $value )
+	{
 		$this->properties[ $key ] = $value;
 		return $this;
 	}
 
 	/// ARRAY ACCESS ///
 
-	public function offsetExists ( $key ) {
+	public function offsetExists ( $key )
+	{
 		return isset( $this->properties[ $key ] );
 	}
 
-	public function offsetGet ( $key ) {
+	public function offsetGet ( $key )
+	{
 		return $this->getProperty( $key );
 	}
 
-	public function offsetSet ( $key , $value ) {
+	public function offsetSet ( $key , $value )
+	{
 		$this->properties[ $key ] = $value;
 	}
 
-	public function offsetUnset ( $key ) {
+	public function offsetUnset ( $key )
+	{
 		unset( $this->properties[ $key ] );
 	}
 
