@@ -25,7 +25,7 @@ class MenuServiceProvider extends ServiceProvider {
 		} );
 
 		$this->app['menu-item'] = $this->app->share( function( $app ) {
-			return new MenuItem( $app );
+			return new MenuItem();
 		} );
 	}
 
