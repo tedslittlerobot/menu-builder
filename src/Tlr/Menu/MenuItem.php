@@ -124,7 +124,7 @@ class MenuItem implements ArrayAccess {
 	{
 		// if $properties is a strink, use that as the link property
 		if ( is_string( $properties ) )
-			$properties = array( 'link' => $properties )
+			$properties = array( 'link' => $properties );
 
 		$properties = array_merge( array( 'title' => $key ), $properties );
 
