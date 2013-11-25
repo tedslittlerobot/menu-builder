@@ -39,4 +39,9 @@ class MenuItem extends Item {
 		return $this->render()->render();
 	}
 
+	protected function getNewItem( $properties = array(), $attributes = array() )
+	{
+		return new MenuItem( $properties, $attributes );
+	}
+
 }

@@ -6,8 +6,7 @@ use ArrayAccess;
  * $key = 'Home';
  * $properties = [
  * 	'title' => 'Menu Title', // defaults to $key
- * 	'link' => 'http://boobs.com',
- * 	'class' => 'woop',
+ * 	'link' => 'http://eric.com'
  * ];
  * $menu->addItem( $key, $properties )
  */
@@ -26,19 +25,21 @@ class MenuItem implements ArrayAccess {
 	protected $items = array();
 
 	/**
-	 * Render Properties
+	 * Render Properties (for the link element)
 	 * @var array
 	 */
 	protected $properties = array();
 
 	/**
-	 * Element Attributes
+	 * Element Attributes for the list item
 	 * @var array
 	 */
 	protected $attributes = array();
 
-	public function __construct( $properties = array() ) {
-		$this->properties = $properties;
+	public function __construct( $properties = array(), $attributes = array() )
+	{
+		$this->setProperties( $properties );
+		$this->setAttributes( $attributes );
 	}
 
 	/**
@@ -46,7 +47,8 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getItems() {
+	public function getItems()
+	{
 		return $this->items;
 	}
 
@@ -57,11 +59,41 @@ class MenuItem implements ArrayAccess {
 	 * @param  array    $properties
 	 * @return Tlr\Menu\MenuItem
 	 */
-	public function item( $key, $properties = array() ) {
+	public function item( $key, $properties = array(), $attributes = array() )
+	{
 		if ( isset( $this->items[ $key ] ) )
 			return $this->items[ $key ];
 
-		return $this->addItem( $key, $properties );
+		return $this->addItem( $key, $properties, $attributes );
+	}
+
+	/**
+	 * Create a new item and add it as a sub item, overwriting any
+	 * that already exist
+	 * @author Stef Horner     (shorner@wearearchitect.com)
+	 * @param  string   $key
+	 * @param  array    $properties
+	 */
+	public function addItem( $key, $properties = array(), $attributes = array() )
+	{
+		// if $properties is a string, set it as the link property
+		if ( is_string( $properties ) )
+			$properties = array('link' => $properties);
+
+		if ( is_string( $attributes ) )
+			$attributes = array( 'class' => explode(' ', $attributes) );
+
+		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $properties ), $attributes );
+	}
+
+	/**
+	 * A function to allow for easy subclassing
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @return Tlr\MenuItem
+	 */
+	protected function getNewItem( $properties = array(), $attributes = array() )
+	{
+		return new MenuItem( $properties, $attributes );
 	}
 
 	/**
@@ -72,6 +104,29 @@ class MenuItem implements ArrayAccess {
 	public function getAttributes()
 	{
 		return $this->attributes;
+	}
+
+	/**
+	 * Merge class => active into the atts array
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @return array
+	 */
+	public function getOutputAttributes()
+	{
+		if ( !$this->isActive() )
+			return $this->getAttributes();
+
+		return array_merge_recursive( $this->getAttributes(), array('class' => 'active') );
+	}
+
+	public function getElementAttributes()
+	{
+		$array = array();
+
+		if ($this->getProperty('link'))
+			$array['href'] = $this->getProperty('link');
+
+		return $array;
 	}
 
 	/**
@@ -95,7 +150,7 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function addAttribute( $key, $value )
 	{
-		$this->attributes[ $key ] = $value;
+		$this->attributes = array_merge_recursive( $this->attributes, array($key => (array)$value) );
 
 		return $this;
 	}
@@ -105,21 +160,9 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getProperties( ) {
+	public function getProperties( )
+	{
 		return $this->properties;
-	}
-
-	/**
-	 * Create a new item and add it as a sub item, overwriting any
-	 * that already exist
-	 * @author Stef Horner     (shorner@wearearchitect.com)
-	 * @param  string   $key
-	 * @param  array    $properties
-	 */
-	public function addItem( $key, $properties = array() ) {
-		$properties = array_merge( array( 'title' => $key ), $properties );
-
-		return $this->items[ $key ] = new MenuItem( $properties );
 	}
 
 	/**
@@ -129,7 +172,8 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	public function getProperty( $property, $default = false ) {
+	public function getProperty( $property, $default = false )
+	{
 		return isset( $this->properties[ $property ] ) ? $this->properties[ $property ] : $default;
 	}
 
@@ -140,26 +184,36 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed   $value
 	 * @return $this
 	 */
-	public function setProperty( $key, $value ) {
+	public function setProperty( $key, $value )
+	{
 		$this->properties[ $key ] = $value;
 		return $this;
 	}
 
+	public function setProperties( $properties )
+	{
+		$this->properties = $properties;
+	}
+
 	/// ARRAY ACCESS ///
 
-	public function offsetExists ( $key ) {
+	public function offsetExists ( $key )
+	{
 		return isset( $this->properties[ $key ] );
 	}
 
-	public function offsetGet ( $key ) {
+	public function offsetGet ( $key )
+	{
 		return $this->getProperty( $key );
 	}
 
-	public function offsetSet ( $key , $value ) {
+	public function offsetSet ( $key , $value )
+	{
 		$this->properties[ $key ] = $value;
 	}
 
-	public function offsetUnset ( $key ) {
+	public function offsetUnset ( $key )
+	{
 		unset( $this->properties[ $key ] );
 	}
 

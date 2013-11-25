@@ -1,6 +1,8 @@
 {
     "name": "tlr/menu",
-    "description": "",
+    "description": "Take some of the stress and boilerplate out of building menus (or indeed any list, because that's basically what a menu is) With support for laravel",
+    "keywords": ["laravel","menu","list"],
+    "license": "MIT",
     "authors": [
         {
             "name": "Stef Horner",
@@ -8,18 +10,17 @@
         }
     ],
     "require": {
-        "php": ">=5.3.0",
-        "illuminate/support": ">=4.0.0"
+        "php": ">=5.3.0"
     },
     "autoload": {
-        "classmap": [
-            "src/migrations"
-        ],
         "psr-0": {
             "Tlr\\Menu\\": "src/"
         }
     },
     "minimum-stability": "dev",
+    "suggest": {
+        "tlr/laravel-utils": "If you are using laravel, this has some useful utilities that are used by this"
+    },
     "require-dev": {
         "mockery/mockery": "dev-master"
     }
