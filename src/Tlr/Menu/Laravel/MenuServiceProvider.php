@@ -23,10 +23,6 @@ class MenuServiceProvider extends ServiceProvider {
 		$this->app->singleton( 'menu', function( $app ) {
 			return new MenuRepository( $app );
 		} );
-
-		$this->app['menu-item'] = $this->app->share( function( $app ) {
-			return new MenuItem();
-		} );
 	}
 
 	/**
