@@ -2,6 +2,7 @@
 
 use View;
 use Tlr\Menu\MenuItem as Item;
+use HTML;
 
 class MenuItem extends Item {
 
@@ -42,6 +43,38 @@ class MenuItem extends Item {
 	protected function getNewItem( $properties = array(), $attributes = array() )
 	{
 		return new MenuItem( $properties, $attributes );
+	}
+
+
+	/**
+	 * Generate an HTML element
+	 * @author Stef Horner     (shorner@wearearchitect.com)
+	 * @param  string   $tag
+	 * @param  array    $attributes
+	 * @return string
+	 */
+	public function element( $tag = 'li', $attributes = array(), $content = null )
+	{
+		$element = array( $tag );
+
+		if ( $attributes )
+		{
+			foreach ($attributes as $attribute => $values)
+			{
+				$attributes[$attribute] = implode(' ', (array)$values);
+			}
+
+			$element[] = HTML::attributes($attributes);
+		}
+
+		$output = "<". implode(' ', $element) .">";
+
+		if (!is_null($content))
+		{
+			$output .= "$content</$tag>";
+		}
+
+		return $output;
 	}
 
 }
