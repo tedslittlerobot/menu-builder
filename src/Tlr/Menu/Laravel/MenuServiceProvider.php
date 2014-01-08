@@ -12,7 +12,7 @@ class MenuServiceProvider extends ServiceProvider {
 
 		$this->app['view']->composer( 'menu.item', 'Tlr\Menu\Laravel\MenuItemComposer' );
 
-		$this->app['html']->macro(function ( $element = 'div', $attributes = array(), $content = null )
+		$this->app['html']->macro('element', function ( $element = 'div', $attributes = array(), $content = null )
 		{
 			foreach ($attributes as $attribute => $values)
 			{
