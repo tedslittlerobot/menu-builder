@@ -11,6 +11,21 @@ class MenuServiceProvider extends ServiceProvider {
 		$this->package('tlr/menu');
 
 		$this->app['view']->composer( 'menu.item', 'Tlr\Menu\Laravel\MenuItemComposer' );
+
+		$this->app['html']->macro(function ( $element = 'div', $attributes = array(), $content = null )
+		{
+			foreach ($attributes as $attribute => $values)
+			{
+				$attributes[$attribute] = implode(' ', (array)$values);
+			}
+
+			$html = "<{$element}" . $this->app['html']->attributes( $attributes ) . ">";
+
+			if ( !is_null($content) )
+				$html .= "{$content}</{$element}>";
+
+			return $html;
+		});
 	}
 
 	/**
