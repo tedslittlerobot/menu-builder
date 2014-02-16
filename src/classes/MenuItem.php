@@ -212,19 +212,23 @@ class MenuItem implements ArrayAccess {
 	{
 		// if $options is a string, set it as the link option
 		if ( is_string( $options ) )
+		{
 			$options = array('link' => $options);
+		}
 
 		if ( is_string( $attributes ) )
+		{
 			$attributes = array( 'class' => explode(' ', $attributes) );
+		}
 
-		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $options ), $attributes );
+		return $this->items[ $key ] = $this->makeItem( array_merge( array( 'title' => $key ), $options ), $attributes );
 	}
 
 	/**
 	 * A function to allow for easy subclassing
 	 * @return Tlr\MenuItem
 	 */
-	protected function getNewItem( $options = array(), $attributes = array() )
+	protected function makeItem( $options = array(), $attributes = array() )
 	{
 		return new MenuItem( $options, $attributes );
 	}
