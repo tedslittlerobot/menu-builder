@@ -14,7 +14,12 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 			'boom' => 'check the bass'
 		);
 
-		$this->menu = new MenuItem($this->options);
+		$this->attributes = array(
+			'foo' => 'bar',
+			'baz' => 'foobar'
+		);
+
+		$this->menu = new MenuItem($this->options, $this->attributes);
 	}
 
 	public function tearDown()
@@ -32,10 +37,11 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	public function testInitialisation()
 	{
 		$this->assertEquals( $this->options, $this->menu->getOptions() );
+		$this->assertEquals( $this->attributes, $this->menu->getAttributes() );
 	}
 
 	/**
-	 * Test that adding proprties works
+	 * Test that adding options works
 	 *
 	 * @return void
 	 */
@@ -45,7 +51,7 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( [], $this->menu->getOptions() );
 
-		foreach ($this->options as $key => $value)
+		foreach( $this->options as $key => $value )
 		{
 			$this->menu->setOption( $key, $value );
 		}
@@ -54,36 +60,25 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test that getting proprties works
+	 * Test that getting options works
 	 *
 	 * @return void
 	 */
 	public function testGetValidOption()
 	{
-		$this->assertEquals( $this->options['woop'], $this->menu->getOption('woop') );
+		$this->assertEquals( $this->options['woop'], $this->menu->option('woop') );
 	}
 
 	/**
-	 * Test that getting proprties works
+	 * Test that getting options works
 	 *
 	 * @return void
 	 */
 	public function testGetMissingOption()
 	{
-		$this->assertEquals( false, $this->menu->getOption('eric') );
-		$this->assertEquals( 'wilson', $this->menu->getOption('eric', 'wilson') );
+		$this->assertEquals( false, $this->menu->option('eric') );
+		$this->assertEquals( 'wilson', $this->menu->option('eric', 'wilson') );
 	}
-
-	// /**
-	//  * Test that getting proprties works
-	//  *
-	//  * @return void
-	//  */
-	// public function testGetMagicOption()
-	// {
-	// 	$this->assertEquals( $this->options['woop'], $this->menu->getWoop() );
-	// 	$this->assertEquals( false, $this->menu->getEric() );
-	// }
 
 	/**
 	 * Test that array access works

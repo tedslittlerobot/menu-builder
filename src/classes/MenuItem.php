@@ -123,8 +123,8 @@ class MenuItem implements ArrayAccess {
 	{
 		$array = array();
 
-		if ($this->getOption('link'))
-			$array['href'] = $this->getOption('link');
+		if ($this->option('link'))
+			$array['href'] = $this->option('link');
 
 		return $array;
 	}
@@ -172,7 +172,7 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	public function getOption( $option, $default = false )
+	public function option( $option, $default = false )
 	{
 		return isset( $this->options[ $option ] ) ? $this->options[ $option ] : $default;
 	}
@@ -204,7 +204,7 @@ class MenuItem implements ArrayAccess {
 
 	public function offsetGet ( $key )
 	{
-		return $this->getOption( $key );
+		return $this->option( $key );
 	}
 
 	public function offsetSet ( $key , $value )
@@ -239,7 +239,7 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function activate( $value, $key = 'link' )
 	{
-		if ( $this->getOption( $key ) === $value )
+		if ( $this->option( $key ) === $value )
 		{
 			$this->setActive();
 		}
