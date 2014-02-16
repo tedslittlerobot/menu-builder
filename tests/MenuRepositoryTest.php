@@ -13,7 +13,7 @@ class MenuRepositoryTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * A basic functional test example.
+	 * Assert that the repo can create menus
 	 *
 	 * @return void
 	 */
@@ -21,11 +21,12 @@ class MenuRepositoryTest extends PHPUnit_Framework_TestCase {
 	{
 		$menu = $this->repo->menu('woop');
 
-		$this->assertEquals( 'Tlr\Menu\MenuItem', get_class($menu) );
+		$this->assertInstanceOf( 'Tlr\Menu\MenuItem', $menu );
+		$this->assertContains( $menu, $this->repo->getMenus() );
 	}
 
 	/**
-	 * A basic functional test example.
+	 * Assert that the
 	 *
 	 * @return void
 	 */
