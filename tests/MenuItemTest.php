@@ -98,11 +98,19 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( 'value', $this->menu['option'] );
 
+		$this->assertFalse( isset( $this->menu['test'] ) );
+
 		$this->menu['test'] = 'peter';
+
+		$this->assertTrue( isset( $this->menu['test'] ) );
 
 		$this->assertEquals( 'peter', $this->menu['test'] );
 
-		$this->assertEquals( false, $this->menu['sony'] );
+		$this->assertNull( $this->menu['sony'] );
+
+		unset( $this->menu['test'] );;
+
+		$this->assertFalse( isset( $this->menu['test'] ) );
 	}
 
 	// /**
