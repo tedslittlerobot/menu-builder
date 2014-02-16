@@ -86,12 +86,20 @@ class MenuItem implements ArrayAccess {
 	/**
 	 * Batch set the item's attributes
 	 * @param  array   $attributes
-	 * @param  boolean  $merge whether or not to merge the arrays
+	 * @param  boolean  $override whether to replace the array, or merge the items in to it
 	 * @return $this
 	 */
-	public function setAttributes( $attributes, $merge = false )
+	public function setAttributes( array $attributes, $override = false )
 	{
-		$this->attributes = ( $merge ? array_merge($this->attributes, (array) $attributes) : (array) $attributes );
+		if ( $override === true )
+		{
+			$this->attributes = array();
+		}
+
+		foreach ($attributes as $key => $value)
+		{
+			$this->addAttribute( $key, $value );
+		}
 
 		return $this;
 	}
@@ -103,7 +111,7 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function addAttribute( $key, $value )
 	{
-		$this->attributes = array_merge_recursive( $this->attributes, array($key => (array)$value) );
+		$this->attributes = array_merge_recursive( $this->attributes, array($key => (array) $value) );
 
 		return $this;
 	}

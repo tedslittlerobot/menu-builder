@@ -36,8 +36,15 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testInitialisation()
 	{
+		$array = array();
+
+		foreach( $this->attributes as $key => $value )
+		{
+			$array[$key] = (array)$value;
+		}
+
 		$this->assertEquals( $this->options, $this->menu->getOptions() );
-		$this->assertEquals( $this->attributes, $this->menu->getAttributes() );
+		$this->assertEquals( $array, $this->menu->getAttributes() );
 	}
 
 	/**
@@ -151,8 +158,7 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	// }
 
 	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
+	 * Test that adding a single attribute works
 	 *
 	 * @return void
 	 */
@@ -164,26 +170,42 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	}
 
 	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
+	 * Test that attributes can get merged reset and overridden
 	 *
 	 * @return void
 	 */
-	public function testMassAssignAndMergeAttributes()
+	public function testOverrideAttributes()
 	{
 		$attributes = array(
-			'kick' => 'this',
+			'one' => 'two',
+		);
+
+		$this->menu->setAttributes( $attributes, true );
+
+		$this->assertEquals( array( 'one' => array( 'two' ) ), $this->menu->getAttributes() );
+	}
+
+	/**
+	 * Test that attributes get merged in when added
+	 *
+	 * @return void
+	 */
+	public function testMergeAttributes()
+	{
+		$attributes = array(
+			'foo' => 'bar2',
+			'last' => 'time'
+		);
+
+		$result = array(
+			'foo' => array('bar', 'bar2'),
+			'baz' => array('foobar'),
+			'last' => array('time'),
 		);
 
 		$this->menu->setAttributes( $attributes );
 
-		$this->assertEquals( $attributes, $this->menu->getAttributes() );
-
-		$attributes[ 'what' ] = 'up';
-
-		$this->menu->setAttributes( $attributes, true );
-
-		$this->assertEquals( $attributes, $this->menu->getAttributes() );
+		$this->assertEquals( $result, $this->menu->getAttributes() );
 	}
 
 	///// ACTIVE /////
