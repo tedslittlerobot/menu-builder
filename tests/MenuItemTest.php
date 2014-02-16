@@ -80,23 +80,23 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'wilson', $this->menu->option('eric', 'wilson') );
 	}
 
-	// /**
-	//  * Test that array access works
-	//  *
-	//  * @return void
-	//  */
-	// public function testArrayAccess()
-	// {
-	// 	$this->menu->setOption( 'option', 'value' );
+	/**
+	 * Test that array access works
+	 *
+	 * @return void
+	 */
+	public function testArrayAccess()
+	{
+		$this->menu->setOption( 'option', 'value' );
 
-	// 	$this->assertEquals( 'value', $this->menu['option'] );
+		$this->assertEquals( 'value', $this->menu['option'] );
 
-	// 	$this->menu['test'] = 'peter';
+		$this->menu['test'] = 'peter';
 
-	// 	$this->assertEquals( 'peter', $this->menu['test'] );
+		$this->assertEquals( 'peter', $this->menu['test'] );
 
-	// 	$this->assertEquals( false, $this->menu['sony'] );
-	// }
+		$this->assertEquals( false, $this->menu['sony'] );
+	}
 
 	// /**
 	//  * Test that adding sub items works
@@ -163,28 +163,30 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array('value'), $this->menu->getAttributes()['key'] );
 	}
 
-	// /**
-	//  * Test that getting items works, and that they are created if
-	//  * they do not already exist
-	//  *
-	//  * @return void
-	//  */
-	// public function testMassAssignAndMergeAttributes()
-	// {
-	// 	$attributes = array(
-	// 		'kick' => 'this',
-	// 	);
+	/**
+	 * Test that getting items works, and that they are created if
+	 * they do not already exist
+	 *
+	 * @return void
+	 */
+	public function testMassAssignAndMergeAttributes()
+	{
+		$attributes = array(
+			'kick' => 'this',
+		);
 
-	// 	$this->menu->setAttributes( $attributes );
+		$this->menu->setAttributes( $attributes );
 
-	// 	$this->assertEquals( $attributes, $this->menu->getAttributes() );
+		$this->assertEquals( $attributes, $this->menu->getAttributes() );
 
-	// 	$attributes[ 'what' ] = 'up';
+		$attributes[ 'what' ] = 'up';
 
-	// 	$this->menu->setAttributes( $attributes, true );
+		$this->menu->setAttributes( $attributes, true );
 
-	// 	$this->assertEquals( $attributes, $this->menu->getAttributes() );
-	// }
+		$this->assertEquals( $attributes, $this->menu->getAttributes() );
+	}
+
+	///// ACTIVE /////
 
 	// public function testActiveIsInitiallyFalse()
 	// {

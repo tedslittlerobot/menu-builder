@@ -92,6 +92,7 @@ class MenuItem implements ArrayAccess {
 	public function setAttributes( $attributes, $merge = false )
 	{
 		$this->attributes = ( $merge ? array_merge($this->attributes, (array) $attributes) : (array) $attributes );
+
 		return $this;
 	}
 
