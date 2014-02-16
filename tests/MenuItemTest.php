@@ -80,151 +80,151 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'wilson', $this->menu->option('eric', 'wilson') );
 	}
 
-	/**
-	 * Test that array access works
-	 *
-	 * @return void
-	 */
-	public function testArrayAccess()
-	{
-		$this->menu->setOption( 'option', 'value' );
+	// /**
+	//  * Test that array access works
+	//  *
+	//  * @return void
+	//  */
+	// public function testArrayAccess()
+	// {
+	// 	$this->menu->setOption( 'option', 'value' );
 
-		$this->assertEquals( 'value', $this->menu['option'] );
+	// 	$this->assertEquals( 'value', $this->menu['option'] );
 
-		$this->menu['test'] = 'peter';
+	// 	$this->menu['test'] = 'peter';
 
-		$this->assertEquals( 'peter', $this->menu['test'] );
+	// 	$this->assertEquals( 'peter', $this->menu['test'] );
 
-		$this->assertEquals( false, $this->menu['sony'] );
-	}
+	// 	$this->assertEquals( false, $this->menu['sony'] );
+	// }
 
-	/**
-	 * Test that adding sub items works
-	 *
-	 * @return void
-	 */
-	public function testAddItem()
-	{
-		$options = array(
-			'kick' => 'this',
-		);
+	// /**
+	//  * Test that adding sub items works
+	//  *
+	//  * @return void
+	//  */
+	// public function testAddItem()
+	// {
+	// 	$options = array(
+	// 		'kick' => 'this',
+	// 	);
 
-		$subItem = $this->menu->addItem( 'One', $options );
+	// 	$subItem = $this->menu->addItem( 'One', $options );
 
-		$this->assertEquals( $this->menu->getItems()['One'], $subItem );
-	}
-
-
-	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
-	 *
-	 * @return void
-	 */
-	public function testGetItem()
-	{
-		$options = array(
-			'kick' => 'this',
-		);
-
-		$subItem = $this->menu->addItem( 'One', $options );
-
-		$this->assertEquals( $this->menu->item('One'), $subItem );
-	}
+	// 	$this->assertEquals( $this->menu->getItems()['One'], $subItem );
+	// }
 
 
-	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
-	 *
-	 * @return void
-	 */
-	public function testAutoAddItem()
-	{
-		$options = array(
-			'kick' => 'this',
-		);
+	// /**
+	//  * Test that getting items works, and that they are created if
+	//  * they do not already exist
+	//  *
+	//  * @return void
+	//  */
+	// public function testGetItem()
+	// {
+	// 	$options = array(
+	// 		'kick' => 'this',
+	// 	);
 
-		$subItem = $this->menu->item( 'One', $options );
+	// 	$subItem = $this->menu->addItem( 'One', $options );
 
-		$this->assertEquals( $this->menu->getItems()['One'], $subItem );
-	}
+	// 	$this->assertEquals( $this->menu->item('One'), $subItem );
+	// }
 
-	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
-	 *
-	 * @return void
-	 */
-	public function testAddAttribute()
-	{
-		$this->menu->addAttribute( 'key', 'value' );
 
-		// $this->assertEquals( array( 'key' => 'value' ), $this->menu->getAttributes() );
-	}
+	// /**
+	//  * Test that getting items works, and that they are created if
+	//  * they do not already exist
+	//  *
+	//  * @return void
+	//  */
+	// public function testAutoAddItem()
+	// {
+	// 	$options = array(
+	// 		'kick' => 'this',
+	// 	);
 
-	/**
-	 * Test that getting items works, and that they are created if
-	 * they do not already exist
-	 *
-	 * @return void
-	 */
-	public function testMassAssignAndMergeAttributes()
-	{
-		$attributes = array(
-			'kick' => 'this',
-		);
+	// 	$subItem = $this->menu->item( 'One', $options );
 
-		$this->menu->setAttributes( $attributes );
+	// 	$this->assertEquals( $this->menu->getItems()['One'], $subItem );
+	// }
 
-		$this->assertEquals( $attributes, $this->menu->getAttributes() );
+	// /**
+	//  * Test that getting items works, and that they are created if
+	//  * they do not already exist
+	//  *
+	//  * @return void
+	//  */
+	// public function testAddAttribute()
+	// {
+	// 	$this->menu->addAttribute( 'key', 'value' );
 
-		$attributes[ 'what' ] = 'up';
+	// 	// $this->assertEquals( array( 'key' => 'value' ), $this->menu->getAttributes() );
+	// }
 
-		$this->menu->setAttributes( $attributes, true );
+	// /**
+	//  * Test that getting items works, and that they are created if
+	//  * they do not already exist
+	//  *
+	//  * @return void
+	//  */
+	// public function testMassAssignAndMergeAttributes()
+	// {
+	// 	$attributes = array(
+	// 		'kick' => 'this',
+	// 	);
 
-		$this->assertEquals( $attributes, $this->menu->getAttributes() );
-	}
+	// 	$this->menu->setAttributes( $attributes );
 
-	public function testActiveIsInitiallyFalse()
-	{
-		$this->assertFalse( $this->menu->isActive() );
-	}
+	// 	$this->assertEquals( $attributes, $this->menu->getAttributes() );
 
-	public function testSetActive()
-	{
-		$this->menu->setActive();
+	// 	$attributes[ 'what' ] = 'up';
 
-		$this->assertTrue( $this->menu->isActive() );
+	// 	$this->menu->setAttributes( $attributes, true );
 
-		$this->menu->setActive( 'eric' );
+	// 	$this->assertEquals( $attributes, $this->menu->getAttributes() );
+	// }
 
-		$this->assertEquals( 'eric', $this->menu->isActive() );
-	}
+	// public function testActiveIsInitiallyFalse()
+	// {
+	// 	$this->assertFalse( $this->menu->isActive() );
+	// }
 
-	public function testActivateMatcher()
-	{
-		$this->menu->setOption( 'link', 'woop' );
+	// public function testSetActive()
+	// {
+	// 	$this->menu->setActive();
 
-		$this->menu->activate( 'woop' );
+	// 	$this->assertTrue( $this->menu->isActive() );
 
-		$this->assertTrue( $this->menu->isActive() );
+	// 	$this->menu->setActive( 'eric' );
 
-		$this->menu->activate( 'eric' );
+	// 	$this->assertEquals( 'eric', $this->menu->isActive() );
+	// }
 
-		$this->assertFalse( $this->menu->isActive() );
-	}
+	// public function testActivateMatcher()
+	// {
+	// 	$this->menu->setOption( 'link', 'woop' );
 
-	public function testRecursiveActivation()
-	{
-		$item = $this->menu->item('sub');
+	// 	$this->menu->activate( 'woop' );
 
-		$item->setOption( 'link', 'foo' );
+	// 	$this->assertTrue( $this->menu->isActive() );
 
-		$this->menu->activate( 'foo' );
+	// 	$this->menu->activate( 'eric' );
 
-		$this->assertTrue( $this->menu->isActive() );
+	// 	$this->assertFalse( $this->menu->isActive() );
+	// }
 
-	}
+	// public function testRecursiveActivation()
+	// {
+	// 	$item = $this->menu->item('sub');
+
+	// 	$item->setOption( 'link', 'foo' );
+
+	// 	$this->menu->activate( 'foo' );
+
+	// 	$this->assertTrue( $this->menu->isActive() );
+
+	// }
 
 }
