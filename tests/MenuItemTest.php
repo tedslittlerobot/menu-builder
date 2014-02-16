@@ -76,7 +76,7 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testGetMissingOption()
 	{
-		$this->assertEquals( false, $this->menu->option('eric') );
+		$this->assertEquals( null, $this->menu->option('eric') );
 		$this->assertEquals( 'wilson', $this->menu->option('eric', 'wilson') );
 	}
 

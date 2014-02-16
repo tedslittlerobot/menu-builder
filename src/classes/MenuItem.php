@@ -172,7 +172,7 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	public function option( $option, $default = false )
+	public function option( $option, $default = null )
 	{
 		return isset( $this->options[ $option ] ) ? $this->options[ $option ] : $default;
 	}
