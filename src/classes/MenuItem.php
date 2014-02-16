@@ -4,11 +4,11 @@ use ArrayAccess;
 
 /**
  * $key = 'Home';
- * $properties = [
+ * $options = [
  * 	'title' => 'Menu Title', // defaults to $key
  * 	'link' => 'http://eric.com'
  * ];
- * $menu->addItem( $key, $properties )
+ * $menu->addItem( $key, $options )
  */
 class MenuItem implements ArrayAccess {
 
@@ -25,10 +25,10 @@ class MenuItem implements ArrayAccess {
 	protected $items = array();
 
 	/**
-	 * Render Properties (for the link element)
+	 * Render Options (for the link element)
 	 * @var array
 	 */
-	protected $properties = array();
+	protected $options = array();
 
 	/**
 	 * Element Attributes for the list item
@@ -36,9 +36,9 @@ class MenuItem implements ArrayAccess {
 	 */
 	protected $attributes = array();
 
-	public function __construct( $properties = array(), $attributes = array() )
+	public function __construct( $options = array(), $attributes = array() )
 	{
-		$this->setProperties( $properties );
+		$this->setOptions( $options );
 		$this->setAttributes( $attributes );
 	}
 
@@ -56,15 +56,15 @@ class MenuItem implements ArrayAccess {
 	 * Get the given item, creating a new one if it doesn't exist
 	 * @author Stef Horner     (shorner@wearearchitect.com)
 	 * @param  string   $key
-	 * @param  array    $properties
+	 * @param  array    $options
 	 * @return Tlr\Menu\MenuItem
 	 */
-	public function item( $key, $properties = array(), $attributes = array() )
+	public function item( $key, $options = array(), $attributes = array() )
 	{
 		if ( isset( $this->items[ $key ] ) )
 			return $this->items[ $key ];
 
-		return $this->addItem( $key, $properties, $attributes );
+		return $this->addItem( $key, $options, $attributes );
 	}
 
 	/**
@@ -72,18 +72,18 @@ class MenuItem implements ArrayAccess {
 	 * that already exist
 	 * @author Stef Horner     (shorner@wearearchitect.com)
 	 * @param  string   $key
-	 * @param  array    $properties
+	 * @param  array    $options
 	 */
-	public function addItem( $key, $properties = array(), $attributes = array() )
+	public function addItem( $key, $options = array(), $attributes = array() )
 	{
-		// if $properties is a string, set it as the link property
-		if ( is_string( $properties ) )
-			$properties = array('link' => $properties);
+		// if $options is a string, set it as the link option
+		if ( is_string( $options ) )
+			$options = array('link' => $options);
 
 		if ( is_string( $attributes ) )
 			$attributes = array( 'class' => explode(' ', $attributes) );
 
-		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $properties ), $attributes );
+		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $options ), $attributes );
 	}
 
 	/**
@@ -91,9 +91,9 @@ class MenuItem implements ArrayAccess {
 	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @return Tlr\MenuItem
 	 */
-	protected function getNewItem( $properties = array(), $attributes = array() )
+	protected function getNewItem( $options = array(), $attributes = array() )
 	{
-		return new MenuItem( $properties, $attributes );
+		return new MenuItem( $options, $attributes );
 	}
 
 	/**
@@ -123,8 +123,8 @@ class MenuItem implements ArrayAccess {
 	{
 		$array = array();
 
-		if ($this->getProperty('link'))
-			$array['href'] = $this->getProperty('link');
+		if ($this->getOption('link'))
+			$array['href'] = $this->getOption('link');
 
 		return $array;
 	}
@@ -156,65 +156,65 @@ class MenuItem implements ArrayAccess {
 	}
 
 	/**
-	 * Get the element's rendering properties
+	 * Get the element's rendering options
 	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
-	public function getProperties( )
+	public function getOptions( )
 	{
-		return $this->properties;
+		return $this->options;
 	}
 
 	/**
-	 * Get an individual property
+	 * Get an individual option
 	 * @author Stef Horner   (shorner@wearearchitect.com)
-	 * @param  string   $property
+	 * @param  string   $option
 	 * @param  mixed  $default
 	 * @return mixed
 	 */
-	public function getProperty( $property, $default = false )
+	public function getOption( $option, $default = false )
 	{
-		return isset( $this->properties[ $property ] ) ? $this->properties[ $property ] : $default;
+		return isset( $this->options[ $option ] ) ? $this->options[ $option ] : $default;
 	}
 
 	/**
-	 * Set an individual property
+	 * Set an individual option
 	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string   $key
 	 * @param  mixed   $value
 	 * @return $this
 	 */
-	public function setProperty( $key, $value )
+	public function setOption( $key, $value )
 	{
-		$this->properties[ $key ] = $value;
+		$this->options[ $key ] = $value;
 		return $this;
 	}
 
-	public function setProperties( $properties )
+	public function setOptions( $options )
 	{
-		$this->properties = $properties;
+		$this->options = $options;
 	}
 
 	/// ARRAY ACCESS ///
 
 	public function offsetExists ( $key )
 	{
-		return isset( $this->properties[ $key ] );
+		return isset( $this->options[ $key ] );
 	}
 
 	public function offsetGet ( $key )
 	{
-		return $this->getProperty( $key );
+		return $this->getOption( $key );
 	}
 
 	public function offsetSet ( $key , $value )
 	{
-		$this->properties[ $key ] = $value;
+		$this->options[ $key ] = $value;
 	}
 
 	public function offsetUnset ( $key )
 	{
-		unset( $this->properties[ $key ] );
+		unset( $this->options[ $key ] );
 	}
 
 	/**
@@ -231,7 +231,7 @@ class MenuItem implements ArrayAccess {
 	}
 
 	/**
-	 * Match if given value matches the property
+	 * Match if given value matches the option
 	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string   $value
 	 * @param  string   $key
@@ -239,7 +239,7 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function activate( $value, $key = 'link' )
 	{
-		if ( $this->getProperty( $key ) === $value )
+		if ( $this->getOption( $key ) === $value )
 		{
 			$this->setActive();
 		}
@@ -258,7 +258,7 @@ class MenuItem implements ArrayAccess {
 	/**
 	 * Determine if the menuitem is active
 	 *
-	 * If the active property is null (ie. hasn't been set by anything),
+	 * If the active option is null (ie. hasn't been set by anything),
 	 * it will test its children to bubble their state up the chain
 	 *
 	 * @author Stef Horner       (shorner@wearearchitect.com)
