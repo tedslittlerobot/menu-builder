@@ -42,63 +42,10 @@ class MenuItem implements ArrayAccess {
 		$this->setAttributes( $attributes );
 	}
 
-	/**
-	 * Get the sub menu items
-	 * @author Stef Horner       (shorner@wearearchitect.com)
-	 * @return array
-	 */
-	public function getItems()
-	{
-		return $this->items;
-	}
-
-	/**
-	 * Get the given item, creating a new one if it doesn't exist
-	 * @author Stef Horner     (shorner@wearearchitect.com)
-	 * @param  string   $key
-	 * @param  array    $options
-	 * @return Tlr\Menu\MenuItem
-	 */
-	public function item( $key, $options = array(), $attributes = array() )
-	{
-		if ( isset( $this->items[ $key ] ) )
-			return $this->items[ $key ];
-
-		return $this->addItem( $key, $options, $attributes );
-	}
-
-	/**
-	 * Create a new item and add it as a sub item, overwriting any
-	 * that already exist
-	 * @author Stef Horner     (shorner@wearearchitect.com)
-	 * @param  string   $key
-	 * @param  array    $options
-	 */
-	public function addItem( $key, $options = array(), $attributes = array() )
-	{
-		// if $options is a string, set it as the link option
-		if ( is_string( $options ) )
-			$options = array('link' => $options);
-
-		if ( is_string( $attributes ) )
-			$attributes = array( 'class' => explode(' ', $attributes) );
-
-		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $options ), $attributes );
-	}
-
-	/**
-	 * A function to allow for easy subclassing
-	 * @author Stef Horner (shorner@wearearchitect.com)
-	 * @return Tlr\MenuItem
-	 */
-	protected function getNewItem( $options = array(), $attributes = array() )
-	{
-		return new MenuItem( $options, $attributes );
-	}
+	///// ATTRIBUTES /////
 
 	/**
 	 * Get the items attributes for HTML rendering
-	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
 	public function getAttributes()
@@ -108,7 +55,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Merge class => active into the atts array
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @return array
 	 */
 	public function getOutputAttributes()
@@ -119,6 +65,10 @@ class MenuItem implements ArrayAccess {
 		return array_merge_recursive( $this->getAttributes(), array('class' => 'active') );
 	}
 
+	/**
+	 * Get the HTML attributes for the element
+	 * @return array
+	 */
 	public function getElementAttributes()
 	{
 		$array = array();
@@ -131,7 +81,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Batch set the item's attributes
-	 * @author Stef Horner     (shorner@wearearchitect.com)
 	 * @param  array   $attributes
 	 * @param  boolean  $merge whether or not to merge the arrays
 	 * @return $this
@@ -144,7 +93,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Set an individual attribute
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string   $key
 	 * @param  mixed   $value
 	 */
@@ -155,9 +103,10 @@ class MenuItem implements ArrayAccess {
 		return $this;
 	}
 
+	///// OPTIONS /////
+
 	/**
 	 * Get the element's rendering options
-	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return array
 	 */
 	public function getOptions( )
@@ -167,7 +116,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Get an individual option
-	 * @author Stef Horner   (shorner@wearearchitect.com)
 	 * @param  string   $option
 	 * @param  mixed  $default
 	 * @return mixed
@@ -179,7 +127,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Set an individual option
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string   $key
 	 * @param  mixed   $value
 	 * @return $this
@@ -217,9 +164,62 @@ class MenuItem implements ArrayAccess {
 		unset( $this->options[ $key ] );
 	}
 
+	///// ITEMS /////
+
+	/**
+	 * Get the sub menu items
+	 * @return array
+	 */
+	public function getItems()
+	{
+		return $this->items;
+	}
+
+	/**
+	 * Get the given item, creating a new one if it doesn't exist
+	 * @param  string   $key
+	 * @param  array    $options
+	 * @return Tlr\Menu\MenuItem
+	 */
+	public function item( $key, $options = array(), $attributes = array() )
+	{
+		if ( isset( $this->items[ $key ] ) )
+			return $this->items[ $key ];
+
+		return $this->addItem( $key, $options, $attributes );
+	}
+
+	/**
+	 * Create a new item and add it as a sub item, overwriting any
+	 * that already exist
+	 * @param  string   $key
+	 * @param  array    $options
+	 */
+	public function addItem( $key, $options = array(), $attributes = array() )
+	{
+		// if $options is a string, set it as the link option
+		if ( is_string( $options ) )
+			$options = array('link' => $options);
+
+		if ( is_string( $attributes ) )
+			$attributes = array( 'class' => explode(' ', $attributes) );
+
+		return $this->items[ $key ] = $this->getNewItem( array_merge( array( 'title' => $key ), $options ), $attributes );
+	}
+
+	/**
+	 * A function to allow for easy subclassing
+	 * @return Tlr\MenuItem
+	 */
+	protected function getNewItem( $options = array(), $attributes = array() )
+	{
+		return new MenuItem( $options, $attributes );
+	}
+
+	///// ACTIVE ITEMS /////
+
 	/**
 	 * Manually set the active state of the item
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  boolean  $value
 	 * @return $this
 	 */
@@ -232,7 +232,6 @@ class MenuItem implements ArrayAccess {
 
 	/**
 	 * Match if given value matches the option
-	 * @author Stef Horner (shorner@wearearchitect.com)
 	 * @param  string   $value
 	 * @param  string   $key
 	 * @return $this
@@ -261,7 +260,6 @@ class MenuItem implements ArrayAccess {
 	 * If the active option is null (ie. hasn't been set by anything),
 	 * it will test its children to bubble their state up the chain
 	 *
-	 * @author Stef Horner       (shorner@wearearchitect.com)
 	 * @return boolean
 	 */
 	public function isActive()
