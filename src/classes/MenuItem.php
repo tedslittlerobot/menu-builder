@@ -59,8 +59,10 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function getOutputAttributes()
 	{
-		if ( !$this->isActive() )
+		if ( ! $this->isActive() )
+		{
 			return $this->getAttributes();
+		}
 
 		return array_merge_recursive( $this->getAttributes(), array('class' => 'active') );
 	}
@@ -74,7 +76,9 @@ class MenuItem implements ArrayAccess {
 		$array = array();
 
 		if ($this->option('link'))
+		{
 			$array['href'] = $this->option('link');
+		}
 
 		return $array;
 	}
@@ -109,7 +113,7 @@ class MenuItem implements ArrayAccess {
 	 * Get the element's rendering options
 	 * @return array
 	 */
-	public function getOptions( )
+	public function getOptions()
 	{
 		return $this->options;
 	}

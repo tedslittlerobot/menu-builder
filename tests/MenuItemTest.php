@@ -150,18 +150,18 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	// 	$this->assertEquals( $this->menu->getItems()['One'], $subItem );
 	// }
 
-	// /**
-	//  * Test that getting items works, and that they are created if
-	//  * they do not already exist
-	//  *
-	//  * @return void
-	//  */
-	// public function testAddAttribute()
-	// {
-	// 	$this->menu->addAttribute( 'key', 'value' );
+	/**
+	 * Test that getting items works, and that they are created if
+	 * they do not already exist
+	 *
+	 * @return void
+	 */
+	public function testAddAttribute()
+	{
+		$this->menu->addAttribute( 'key', 'value' );
 
-	// 	// $this->assertEquals( array( 'key' => 'value' ), $this->menu->getAttributes() );
-	// }
+		$this->assertEquals( array('value'), $this->menu->getAttributes()['key'] );
+	}
 
 	// /**
 	//  * Test that getting items works, and that they are created if
