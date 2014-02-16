@@ -197,7 +197,9 @@ class MenuItem implements ArrayAccess {
 	public function item( $key, $options = array(), $attributes = array() )
 	{
 		if ( isset( $this->items[ $key ] ) )
+		{
 			return $this->items[ $key ];
+		}
 
 		return $this->addItem( $key, $options, $attributes );
 	}
@@ -208,7 +210,7 @@ class MenuItem implements ArrayAccess {
 	 * @param  string   $key
 	 * @param  array    $options
 	 */
-	public function addItem( $key, $options = array(), $attributes = array() )
+	public function addItem( $title, $options = array(), $attributes = array() )
 	{
 		// if $options is a string, set it as the link option
 		if ( is_string( $options ) )
@@ -221,7 +223,7 @@ class MenuItem implements ArrayAccess {
 			$attributes = array( 'class' => explode(' ', $attributes) );
 		}
 
-		return $this->items[ $key ] = $this->makeItem( array_merge( array( 'title' => $key ), $options ), $attributes );
+		return $this->items[ $key ] = $this->makeItem( array_merge( array( 'title' => $title ), $options ), $attributes );
 	}
 
 	/**
