@@ -346,20 +346,34 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function activate( $value, $key = 'link' )
 	{
-		if ( $this->option( $key ) === $value )
+		$active = $this->activateChildren($value, $key);
+
+		if ( ! $active )
 		{
-			$this->setActive();
-		}
-		else
-		{
-			$this->setActive( null );
+			if ( $this->option( $key ) === $value )
+			{
+				$active = true;
+			}
 		}
 
-		foreach ($this->items as $item) {
-			$item->activate( $value, $key );
-		}
+		$this->setActive( $active );
 
 		return $this;
+	}
+
+	public function activateChildren( $value, $key = 'link' )
+	{
+		$active = false;
+
+		foreach ($this->items as $item)
+		{
+			if ( $item->activate( $value, $key )->isActive() )
+			{
+				$active = true;
+			}
+		}
+
+		return $active;
 	}
 
 	/**
@@ -372,16 +386,7 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function isActive()
 	{
-		if ( !is_null( $this->active ) )
-			return $this->active;
-
-		foreach ( $this->items as $item )
-		{
-			if ( $item->isActive() )
-				return true;
-		}
-
-		return false;
+		return ! ( is_null( $this->active ) || ( $this->active === false ) );
 	}
 
 }
