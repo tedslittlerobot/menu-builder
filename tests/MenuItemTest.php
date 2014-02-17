@@ -256,4 +256,15 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( 'foo', $result );
 	}
 
+	/**
+	 * Make sure the makeOptions method turns its third argument into a link
+	 * option if it is a strink
+	 */
+	public function testAutoLinkOptions()
+	{
+		$result = $this->menu->makeOptions('foo', 'bar', 'baz');
+
+		$this->assertEquals( array('key' => 'foo', 'title' => 'bar', 'link' => 'baz'), $result );
+	}
+
 }
