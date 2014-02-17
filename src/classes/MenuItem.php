@@ -57,30 +57,48 @@ class MenuItem implements ArrayAccess {
 	 * Merge class => active into the atts array
 	 * @return array
 	 */
-	public function getOutputAttributes()
+	public function compileAttributes()
 	{
-		if ( ! $this->isActive() )
-		{
-			return $this->getAttributes();
-		}
+		$attributes = $this->mergeActive( $this->getAttributes() );
+		$attributes = array_merge_recursive( $attributes, $this->compileOptions() );
 
-		return array_merge_recursive( $this->getAttributes(), array('class' => 'active') );
+		return $attributes;
 	}
 
 	/**
-	 * Get the HTML attributes for the element
+	 * Construct atts from options
 	 * @return array
 	 */
-	public function getElementAttributes()
+	public function compileOptions()
 	{
-		$array = array();
+		$atts = array();
 
-		if ($this->option('link'))
+		if ( $link = $this->option('link') )
 		{
-			$array['href'] = $this->option('link');
+			$atts['href'] = $link;
 		}
 
-		return $array;
+		if ( $key = $this->option('key') )
+		{
+			$atts['class'] = array($key);
+		}
+
+		return $atts;
+	}
+
+	/**
+	 * If the item is active, add a relavent class
+	 * @param  array $array
+	 * @return array
+	 */
+	public function mergeActive( array $array )
+	{
+		if ( ! $this->isActive() )
+		{
+			return $array;
+		}
+
+		return array_merge_recursive( $array, array('class' => 'active') );
 	}
 
 	/**
