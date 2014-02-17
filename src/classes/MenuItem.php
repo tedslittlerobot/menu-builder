@@ -98,7 +98,7 @@ class MenuItem implements ArrayAccess {
 			return $array;
 		}
 
-		return array_merge_recursive( $array, array('class' => 'active') );
+		return array_merge_recursive( $array, array('class' => array('active')) );
 	}
 
 	/**

@@ -241,18 +241,34 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( $this->menu->isActive() );
 	}
 
-	// public function testRecursiveActivation()
-	// {
-	// 	$item = $this->menu->item('sub');
+	public function testRecursiveActivation()
+	{
+		$item = $this->menu->item('sub');
 
-	// 	$item->setOption( 'link', 'foo' );
+		$item->setOption( 'link', 'foo' );
 
-	// 	$this->menu->activate( 'foo' );
+		$this->menu->activate( 'foo' );
 
-	// 	$this->assertTrue( $this->menu->isActive() );
+		$this->assertTrue( $this->menu->isActive() );
+	}
 
-	// }
+	public function testMergeActiveWhenFalse()
+	{
+		$result = $this->menu->mergeActive( array() );
 
+		$this->assertEquals( array(), $result );
+	}
+
+	public function testMergeActiveWhenTrue()
+	{
+		$this->menu->setOption( 'link', 'woop' );
+
+		$this->menu->activate( 'woop' );
+
+		$result = $this->menu->mergeActive( array() );
+
+		$this->assertEquals( array( 'class' => array('active') ), $result );
+	}
 
 	/**
 	 * Test explicit assignment of new item index
