@@ -189,19 +189,39 @@ class MenuItem implements ArrayAccess {
 	}
 
 	/**
+	 * Find an item by an arbitrary defined option (defaults to key)
+	 * @param  mixed  $needle
+	 * @param  string $option  the option on the property to search by
+	 * @param  mixed  $default what to return if nothign is found (defaults to null)
+	 * @return mixed
+	 */
+	public function findByKey( $needle, $option = 'key', $default = null )
+	{
+		foreach ($this->items as $item)
+		{
+			if ( $item->option( $option ) === $needle )
+			{
+				return $item;
+			}
+		}
+
+		return $default;
+	}
+
+	/**
 	 * Get the given item, creating a new one if it doesn't exist
 	 * @param  string   $key
 	 * @param  array    $options
 	 * @return Tlr\Menu\MenuItem
 	 */
-	public function item( $key, $options = array(), $attributes = array() )
+	public function item( $key, $title = '', $options = array(), $attributes = array(), $index = null )
 	{
-		if ( isset( $this->items[ $key ] ) )
+		if ( $item = $this->findByKey( $key ) )
 		{
-			return $this->items[ $key ];
+			return $item;
 		}
 
-		return $this->addItem( $key, $options, $attributes );
+		return $this->addItem( $key, $title, $options, $attributes, $index );
 	}
 
 	/**
@@ -210,20 +230,49 @@ class MenuItem implements ArrayAccess {
 	 * @param  string   $key
 	 * @param  array    $options
 	 */
-	public function addItem( $title, $options = array(), $attributes = array() )
+	public function addItem( $key, $title = '', $options = array(), $attributes = array(), $index = null )
 	{
-		// if $options is a string, set it as the link option
-		if ( is_string( $options ) )
-		{
-			$options = array('link' => $options);
-		}
-
 		if ( is_string( $attributes ) )
 		{
 			$attributes = array( 'class' => explode(' ', $attributes) );
 		}
 
-		return $this->items[ $key ] = $this->makeItem( array_merge( array( 'title' => $title ), $options ), $attributes );
+		$item = $this->makeItem( $this->compileOptions($key, $title, $options), $attributes );
+
+		return $this->items[ $this->getNewItemIndex( $index ) ] = $item;
+	}
+
+	public function getNewItemIndex( $index = null )
+	{
+		if ( ! is_null($index) )
+		{
+			return $index;
+		}
+
+		$count = count($this->items);
+
+		return $count + 1;
+	}
+
+	/**
+	 * Make the options array
+	 * @param  string $key
+	 * @param  string $title
+	 * @param  mixed  $options
+	 * @return array
+	 */
+	public function compileOptions( $key, $title, $options )
+	{
+		if ( is_string( $options ) )
+		{
+			$options = array('link' => $options);
+		}
+
+		$options['key'] = $key;
+
+		$options['title'] = $title;
+
+		return $options;
 	}
 
 	/**
