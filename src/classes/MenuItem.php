@@ -232,16 +232,16 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function addItem( $key, $title = '', $options = array(), $attributes = array(), $index = null )
 	{
-		if ( is_string( $attributes ) )
-		{
-			$attributes = array( 'class' => explode(' ', $attributes) );
-		}
-
-		$item = $this->makeItem( $this->compileOptions($key, $title, $options), $attributes );
+		$item = $this->makeItem( $this->makeOptions($key, $title, $options), $this->makeAttributes( $attributes ) );
 
 		return $this->items[ $this->getNewItemIndex( $index ) ] = $item;
 	}
 
+	/**
+	 * Get the index for a new item
+	 * @param  mixed $index
+	 * @return mixed
+	 */
 	public function getNewItemIndex( $index = null )
 	{
 		if ( ! is_null($index) )
@@ -261,7 +261,7 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed  $options
 	 * @return array
 	 */
-	public function compileOptions( $key, $title, $options )
+	public function makeOptions( $key, $title, $options )
 	{
 		if ( is_string( $options ) )
 		{
@@ -273,6 +273,23 @@ class MenuItem implements ArrayAccess {
 		$options['title'] = $title;
 
 		return $options;
+	}
+
+	/**
+	 * Make the attributes array
+	 * @param  string $key
+	 * @param  string $title
+	 * @param  mixed  $options
+	 * @return array
+	 */
+	public function makeAttributes( $attributes )
+	{
+		if ( is_string( $attributes ) )
+		{
+			$attributes = array('class' => explode(' ', $attributes));
+		}
+
+		return $attributes;
 	}
 
 	/**
