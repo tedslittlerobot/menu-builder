@@ -307,7 +307,7 @@ class MenuItem implements ArrayAccess {
 			$attributes = array('class' => explode(' ', $attributes));
 		}
 
-		return $attributes;
+		return (array) $attributes;
 	}
 
 	/**
