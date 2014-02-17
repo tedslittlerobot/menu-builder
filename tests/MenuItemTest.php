@@ -120,50 +120,36 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	 */
 	public function testAddItem()
 	{
-		$options = array(
-			'kick' => 'this',
-		);
-
-		$subItem = $this->menu->addItem( 'foo', 'Foo', $options );
+		$subItem = $this->menu->addItem( 'foo', 'Foo' );
 
 		$this->assertContains( $subItem, $this->menu->getItems() );
 	}
 
+	/**
+	 * Test that getting items works, and that they are created if
+	 * they do not already exist
+	 *
+	 * @return void
+	 */
+	public function testGetItem()
+	{
+		$item = $this->menu->addItem( 'foo', 'Foo' );
 
-	// /**
-	//  * Test that getting items works, and that they are created if
-	//  * they do not already exist
-	//  *
-	//  * @return void
-	//  */
-	// public function testGetItem()
-	// {
-	// 	$options = array(
-	// 		'kick' => 'this',
-	// 	);
+		$this->assertEquals( $this->menu->item('foo'), $item );
+	}
 
-	// 	$subItem = $this->menu->addItem( 'One', $options );
+	/**
+	 * Test that getting items works, and that they are created if
+	 * they do not already exist
+	 *
+	 * @return void
+	 */
+	public function testMakeOrGet()
+	{
+		$item = $this->menu->item( 'foo', 'Foo' );
 
-	// 	$this->assertEquals( $this->menu->item('One'), $subItem );
-	// }
-
-
-	// /**
-	//  * Test that getting items works, and that they are created if
-	//  * they do not already exist
-	//  *
-	//  * @return void
-	//  */
-	// public function testAutoAddItem()
-	// {
-	// 	$options = array(
-	// 		'kick' => 'this',
-	// 	);
-
-	// 	$subItem = $this->menu->item( 'One', $options );
-
-	// 	$this->assertEquals( $this->menu->getItems()['One'], $subItem );
-	// }
+		$this->assertSame( $this->menu->item('foo'), $item );
+	}
 
 	/**
 	 * Test that adding a single attribute works
