@@ -267,4 +267,19 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array('key' => 'foo', 'title' => 'bar', 'link' => 'baz'), $result );
 	}
 
+	/**
+	 * Make sure the makeAttributes method returns the an attributes array,
+	 * mutating it into a class array if the input is a string
+	 */
+	public function testMakeAttributes()
+	{
+		$result = $this->menu->makeAttributes( array('foo', 'bar') );
+
+		$this->assertEquals( array('foo', 'bar'), $result );
+
+		$result = $this->menu->makeAttributes( 'bar baz' );
+
+		$this->assertEquals( array('class' => array('bar', 'baz')), $result );
+	}
+
 }
