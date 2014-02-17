@@ -80,7 +80,7 @@ class MenuItem implements ArrayAccess {
 
 		if ( $key = $this->option('key') )
 		{
-			$atts['class'] = array($key);
+			$atts['class'] = array( \Illuminate\Support\Str::slug($key) );
 		}
 
 		return $atts;
