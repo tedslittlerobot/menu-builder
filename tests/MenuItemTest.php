@@ -270,6 +270,23 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array( 'class' => array('active') ), $result );
 	}
 
+	public function testCompileAttributes()
+	{
+		$this->menu->setOptions( array('link' => 'fooLink', 'key' => 'fooKey') );
+		$this->menu->setAttributes( array( 'class' => 'test' ), true );
+
+		$this->menu->activate('fooLink');
+
+		$expected = array(
+			'href' => 'fooLink',
+			'class' => array('test', 'active', 'fookey')
+		);
+
+		$result = $this->menu->compileAttributes();
+
+		$this->assertEquals( $expected, $result );
+	}
+
 	/**
 	 * Test explicit assignment of new item index
 	 */
