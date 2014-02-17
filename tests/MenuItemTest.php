@@ -113,21 +113,21 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertFalse( isset( $this->menu['test'] ) );
 	}
 
-	// /**
-	//  * Test that adding sub items works
-	//  *
-	//  * @return void
-	//  */
-	// public function testAddItem()
-	// {
-	// 	$options = array(
-	// 		'kick' => 'this',
-	// 	);
+	/**
+	 * Test that adding sub items works
+	 *
+	 * @return void
+	 */
+	public function testAddItem()
+	{
+		$options = array(
+			'kick' => 'this',
+		);
 
-	// 	$subItem = $this->menu->addItem( 'One', $options );
+		$subItem = $this->menu->addItem( 'foo', 'Foo', $options );
 
-	// 	$this->assertEquals( $this->menu->getItems()['One'], $subItem );
-	// }
+		$this->assertContains( $subItem, $this->menu->getItems() );
+	}
 
 
 	// /**
