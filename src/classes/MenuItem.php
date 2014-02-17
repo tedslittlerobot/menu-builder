@@ -269,6 +269,11 @@ class MenuItem implements ArrayAccess {
 
 		$count = count($this->items);
 
+		if (false)
+		{
+			// @TODO mutate the indices somehow
+		}
+
 		return $count + 1;
 	}
 
