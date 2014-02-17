@@ -204,34 +204,42 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 	///// ACTIVE /////
 
-	// public function testActiveIsInitiallyFalse()
-	// {
-	// 	$this->assertFalse( $this->menu->isActive() );
-	// }
+	public function testActiveIsInitiallyFalse()
+	{
+		$this->assertFalse( $this->menu->isActive() );
+	}
 
-	// public function testSetActive()
-	// {
-	// 	$this->menu->setActive();
+	public function testSetActive()
+	{
+		$this->menu->setActive();
+		$this->assertTrue( $this->menu->isActive() );
 
-	// 	$this->assertTrue( $this->menu->isActive() );
+		$this->menu->setActive( 'foo' );
+		$this->assertTrue( $this->menu->isActive() );
 
-	// 	$this->menu->setActive( 'eric' );
+		$this->menu->setActive( null );
+		$this->assertFalse( $this->menu->isActive() );
+	}
 
-	// 	$this->assertEquals( 'eric', $this->menu->isActive() );
-	// }
+	public function testActivateMatchesTrue()
+	{
+		$this->menu->setOption( 'link', 'woop' );
 
-	// public function testActivateMatcher()
-	// {
-	// 	$this->menu->setOption( 'link', 'woop' );
+		$this->menu->activate( 'woop' );
 
-	// 	$this->menu->activate( 'woop' );
+		$this->assertTrue( $this->menu->isActive() );
+	}
 
-	// 	$this->assertTrue( $this->menu->isActive() );
+	public function testActivateDoesNotMatch()
+	{
+		$this->menu->setOption( 'link', 'woop' );
 
-	// 	$this->menu->activate( 'eric' );
+		// This initial passing activation is in there due to an earlier bug
+		$this->menu->activate( 'woop' );
+		$this->menu->activate( 'foo' );
 
-	// 	$this->assertFalse( $this->menu->isActive() );
-	// }
+		$this->assertFalse( $this->menu->isActive() );
+	}
 
 	// public function testRecursiveActivation()
 	// {
