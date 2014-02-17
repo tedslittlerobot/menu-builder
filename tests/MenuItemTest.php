@@ -282,4 +282,16 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals( array('class' => array('bar', 'baz')), $result );
 	}
 
+	/**
+	 * Test the compilation of the options array into an array of HTML elements
+	 */
+	public function testCompileOptions()
+	{
+		$this->menu->setOption('link', 'foo');
+		$this->menu->setOption('key', 'Foo Bar');
+
+		$result = $this->menu->compileOptions();
+
+		$this->assertEquals( array('href' => 'foo', 'class' => array('foo-bar')), $result );
+	}
 }
