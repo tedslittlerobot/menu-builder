@@ -203,6 +203,8 @@ class MenuItem implements ArrayAccess {
 	 */
 	public function getItems()
 	{
+		ksort($this->items);
+
 		return $this->items;
 	}
 
