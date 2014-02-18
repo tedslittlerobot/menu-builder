@@ -260,21 +260,25 @@ class MenuItem implements ArrayAccess {
 	 * @param  mixed $index
 	 * @return mixed
 	 */
-	public function getNewItemIndex( $index = null )
+	public function getNewItemIndex( $index = null, $precision = 100 )
 	{
 		if ( ! is_null($index) )
 		{
 			return $index;
 		}
 
-		$count = count($this->items);
+		$keys = array_keys( $this->items );
 
-		if (false)
+		if (count($keys) === 0)
 		{
-			// @TODO mutate the indices somehow
+			return $precision;
 		}
 
-		return $count + 1;
+		$prev = max( $keys );
+
+		$index = intval( ceil( $prev / $precision ) * $precision );
+
+		return $prev !== $index ? $index : $index + $precision;
 	}
 
 	/**

@@ -290,11 +290,33 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 	/**
 	 * Test explicit assignment of new item index
 	 */
-	public function testNewItemIndex()
+	public function testNewItemStringIndex()
 	{
 		$result = $this->menu->getNewItemIndex( 'foo' );
 
 		$this->assertEquals( 'foo', $result );
+	}
+
+	/**
+	 * Test explicit assignment of new item index
+	 */
+	public function testNewItemRoundingIndices()
+	{
+		$result = $this->menu->getNewItemIndex();
+		$this->assertEquals( 100, $result );
+
+		$this->menu->addItem( 'foo', '', array(), array(), 5 );
+
+		$result = $this->menu->getNewItemIndex();
+		$this->assertEquals( 100, $result );
+
+		$this->menu->addItem( 'foo', '', array(), array(), 100 );
+		$result = $this->menu->getNewItemIndex();
+		$this->assertEquals( 200, $result );
+
+		$this->menu->addItem( 'foo', '', array(), array(), 299 );
+		$result = $this->menu->getNewItemIndex();
+		$this->assertEquals( 300, $result );
 	}
 
 	/**
