@@ -357,4 +357,16 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertEquals( array('href' => 'foo', 'class' => array('foo-bar')), $result );
 	}
+
+	/**
+	 * Test that the menu can see if it has any items
+	 */
+	public function testHasItems()
+	{
+		$this->assertFalse( $this->menu->hasItems() );
+
+		$this->menu->item('foo');
+
+		$this->assertTrue( $this->menu->hasItems() );
+	}
 }

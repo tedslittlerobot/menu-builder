@@ -198,6 +198,15 @@ class MenuItem implements ArrayAccess {
 	///// ITEMS /////
 
 	/**
+	 * Check if the menu item has any sub-menu items
+	 * @return boolean
+	 */
+	public function hasItems()
+	{
+		return count( $this->items ) > 0;
+	}
+
+	/**
 	 * Get the sub menu items
 	 * @return array
 	 */
