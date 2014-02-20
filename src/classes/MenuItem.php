@@ -69,11 +69,11 @@ class MenuItem implements ArrayAccess {
 	 * Construct atts from options
 	 * @return array
 	 */
-	public function compileOptions()
+	public function compileOptions( $withLink = false )
 	{
 		$atts = array();
 
-		if ( $link = $this->option('link') )
+		if ( $withLink && $link = $this->option('link') )
 		{
 			$atts['href'] = $link;
 		}

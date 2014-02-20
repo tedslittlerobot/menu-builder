@@ -278,7 +278,6 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->menu->activate('fooLink');
 
 		$expected = array(
-			'href' => 'fooLink',
 			'class' => array('test', 'active', 'fookey')
 		);
 
@@ -354,8 +353,11 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->menu->setOption('key', 'Foo Bar');
 
 		$result = $this->menu->compileOptions();
+		$this->assertEquals( array('class' => array('foo-bar')), $result );
 
-		$this->assertEquals( array('href' => 'foo', 'class' => array('foo-bar')), $result );
+
+		$result2 = $this->menu->compileOptions(true);
+		$this->assertEquals( array('href' => 'foo', 'class' => array('foo-bar')), $result2 );
 	}
 
 	/**
