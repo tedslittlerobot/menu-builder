@@ -77,7 +77,7 @@ $newMenu = $repo->menu( 'other-nav' ); // a new instance, because the 'other-nav
 
 ### Laravel
 
-Add `Tlr\Menu\Laravel\MenuServiceProvider` to the `providers` array in Laravel's `app/config/app.php`'s, and add `Tlr\Menu\Laravel\Facades\Menu` to the `aliases` array.
+Add `Tlr\Menu\Laravel\MenuServiceProvider` to the `providers` array in Laravel's `app/config/app.php`'s, and add `'Menu' => 'Tlr\Menu\Laravel\MenuFacade'` to the `aliases` array.
 
 You can then use the `Menu` facade as a shortcut for the `MenuRepository` class, like so:
 ```php
