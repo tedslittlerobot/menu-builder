@@ -87,6 +87,10 @@ $menu->item('Home')
 
 after which, you can access it again later with `Menu::menu( 'nav' )`.
 
-The laravel version of the class can be echoed out (which calls the `render()` method). This renders the menu using Laravel's blade view system. If you want to use a custom view, you can pass the view's name to the `$menu->setView( 'my.menu.view' )` method, which will have a `$menu` variable available.
+The Laravel version of the class can be echoed out (which will call the `render()` method). This renders the menu using Laravel's blade templating system. You have two options for customising:
+- You can override the Menu Builder views (run `php artisan view:publish tlr/view`, then edit those files).
+- You can pass a view to the parent menu like so. This view will have the `MenuItem` object available as the `$menu` variable:
 
-NOTE: if you use the default view, then you must add the [HtmlBuilder util from this package](https://github.com/tedslittlerobot/laravel-utils)
+```php
+$menu->setView( 'my.menu.view' );
+```
