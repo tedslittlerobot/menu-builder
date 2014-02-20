@@ -39,13 +39,14 @@ class MenuServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Guess the package path for the provider.
-	 *
-	 * @return string
+	 * Override method for more shallow file structure
+	 * @inheritdoc
 	 */
 	public function guessPackagePath()
 	{
-		return realpath( parent::guessPackagePath().'/../' );
+		$path = with(new \ReflectionClass($this))->getFileName();
+
+		return realpath(dirname($path).'/../../');
 	}
 
 }
