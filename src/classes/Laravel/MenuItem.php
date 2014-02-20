@@ -40,41 +40,13 @@ class MenuItem extends Item {
 		return $this->render()->render();
 	}
 
-	protected function getNewItem( $properties = array(), $attributes = array() )
-	{
-		return new MenuItem( $properties, $attributes );
-	}
-
-
 	/**
-	 * Generate an HTML element
-	 * @author Stef Horner     (shorner@wearearchitect.com)
-	 * @param  string   $tag
-	 * @param  array    $attributes
-	 * @return string
+	 * A function to allow for easy subclassing
+	 * @return Tlr\MenuItem
 	 */
-	public function element( $tag = 'li', $attributes = array(), $content = null )
+	protected function makeItem( $options = array(), $attributes = array() )
 	{
-		$element = array( $tag );
-
-		if ( $attributes )
-		{
-			foreach ($attributes as $attribute => $values)
-			{
-				$attributes[$attribute] = implode(' ', (array)$values);
-			}
-
-			$element[] = HTML::attributes($attributes);
-		}
-
-		$output = "<". implode(' ', $element) .">";
-
-		if (!is_null($content))
-		{
-			$output .= "$content</$tag>";
-		}
-
-		return $output;
+		return new MenuItem( $options, $attributes );
 	}
 
 }
