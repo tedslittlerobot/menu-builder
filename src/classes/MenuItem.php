@@ -31,6 +31,12 @@ class MenuItem implements ArrayAccess {
 	protected $options = array();
 
 	/**
+	 * A collection of filters for the menu
+	 * @var array
+	 */
+	protected $filters = array();
+
+	/**
 	 * Element Attributes for the list item
 	 * @var array
 	 */
@@ -207,14 +213,31 @@ class MenuItem implements ArrayAccess {
 	}
 
 	/**
-	 * Get the sub menu items
+	 * Get the menu's items. Accepts an optional argument that can be
+	 * boolean to run the menu's defined filters (or not), or it can be
+	 * a closure to filter by.
+	 * @param boolean|Closure $filter
 	 * @return array
 	 */
-	public function getItems()
+	public function getItems( $filter = true )
 	{
-		ksort($this->items);
+		$items = $this->items;
 
-		return $this->items;
+		if (is_callable($filter))
+		{
+			$items = array_filter($items, $filter)
+		}
+		elseif ($filter)
+		{
+			foreach ($this->filters as $filter)
+			{
+				$items = array_filter($items, $filter);
+			}
+		}
+
+		ksort($items);
+
+		return $items;
 	}
 
 	/**
