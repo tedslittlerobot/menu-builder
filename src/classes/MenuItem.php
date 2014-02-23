@@ -399,6 +399,12 @@ class MenuItem implements ArrayAccess {
 		return $this;
 	}
 
+	/**
+	 * Attempt to activate child menu items
+	 * @param  mixed  $value
+	 * @param  string $key
+	 * @return boolean
+	 */
 	public function activateChildren( $value, $key = 'link' )
 	{
 		$active = false;
