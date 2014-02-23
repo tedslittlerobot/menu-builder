@@ -427,4 +427,18 @@ class MenuItem implements ArrayAccess {
 		return ! ( is_null( $this->active ) || ( $this->active === false ) );
 	}
 
+	/**
+	 * Add a filter to the filter stack
+	 * @param  Closure $filter
+	 */
+	public function addFilter( $filter )
+	{
+		if (is_callable($filter))
+		{
+			$this->filters[] = $filter;
+		}
+
+		return $this;
+	}
+
 }
