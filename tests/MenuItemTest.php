@@ -371,4 +371,21 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 		$this->assertTrue( $this->menu->hasItems() );
 	}
+
+	/**
+	 * Check that the add filters function works
+	 * @author Stef Horner (shorner@wearearchitect.com)
+	 * @return [type] [description]
+	 */
+	public function testAddFilters()
+	{
+		$this->assertEquals(array(), $this->menu->getFilters());
+
+		$callable = function() {};
+
+		$this->menu->addFilter($callable);
+
+		$this->assertEquals(array($callable), $this->menu->getFilters());
+	}
+
 }

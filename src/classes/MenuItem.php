@@ -225,7 +225,7 @@ class MenuItem implements ArrayAccess {
 
 		if (is_callable($filter))
 		{
-			$items = array_filter($items, $filter)
+			$items = array_filter($items, $filter);
 		}
 		elseif ($filter)
 		{
@@ -439,6 +439,15 @@ class MenuItem implements ArrayAccess {
 		}
 
 		return $this;
+	}
+
+	/**
+	 * Get the filter stack
+	 * @return array
+	 */
+	public function getFilters()
+	{
+		return $this->filters;
 	}
 
 }
