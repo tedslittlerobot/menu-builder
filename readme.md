@@ -78,6 +78,10 @@ $headerMenu = $repo->menu( 'header-nav' ); // will use the existing menu instanc
 $newMenu = $repo->menu( 'other-nav' ); // that key hasn't been used yet, so a new instance will be created and cached with that key
 ```
 
+### Filters
+
+The menu can be filtered. Say you have a menu for usage in an admin area, or in a context with user auth levels or permissions. You can pass a filter closure to the `getItems` method that fill be used to filter the menu items.
+
 ### Laravel
 
 Add `Tlr\Menu\Laravel\MenuServiceProvider` to the `providers` array in Laravel's `app/config/app.php`'s, and add `'Menu' => 'Tlr\Menu\Laravel\MenuFacade'` to the `aliases` array.
