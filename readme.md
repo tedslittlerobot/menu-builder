@@ -92,6 +92,18 @@ $menu->getItems(function($item) use ($user)
 });
 ```
 
+- You can add multiple filters to a menu with the `addFilter($callable)` method. These filters will be applied when the `getItems` method is called.
+
+```php
+// This will add a filter that only lets the given user see the menu items if they have the appropriate auth level
+$menu->addFilter(function($item) use ($user)
+{
+	return $item->option('auth') <= $user->authLevel;
+});
+$menu->getItems();
+```
+
+If you do not want to filter the items, you can call `$menu->getItems(false)`
 
 ### Laravel
 
