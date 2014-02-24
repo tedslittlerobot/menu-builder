@@ -383,7 +383,7 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 		$this->menu->addFilter($callable);
 
-		$this->assertEquals(array($callable), $this->menu->getFilters());
+		$this->assertSame(array($callable), $this->menu->getFilters());
 	}
 
 }
