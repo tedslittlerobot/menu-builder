@@ -80,7 +80,18 @@ $newMenu = $repo->menu( 'other-nav' ); // that key hasn't been used yet, so a ne
 
 ### Filters
 
-The menu can be filtered. Say you have a menu for usage in an admin area, or in a context with user auth levels or permissions. You can pass a filter closure to the `getItems` method that fill be used to filter the menu items.
+The menu can be filtered. Say you have a menu for usage in an admin area, or in a context with user auth levels or permissions. You have two options:
+
+- You can pass a filter closure to the `getItems` method that fill be used to filter the menu items.
+
+```php
+// This will filter the items based on user permissions
+$menu->getItems(function($item) use ($user)
+{
+	return $user->can( $item->option( 'permissions', array() ) );
+});
+```
+
 
 ### Laravel
 
