@@ -11,11 +11,6 @@ class MenuRepository extends Repository {
 	 */
 	protected $app;
 
-	public function __construct( Application $app )
-	{
-		$this->app = $app;
-	}
-
 	/**
 	 * Add an IOC resolved Menu Item
 	 * @author Stef Horner (shorner@wearearchitect.com)
