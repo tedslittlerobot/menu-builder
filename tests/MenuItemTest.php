@@ -386,4 +386,21 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame(array($callable), $this->menu->getFilters());
 	}
 
+	/**
+	 * Test that sending a filter to the getItems method works
+	 */
+	public function testOverrideFilter()
+	{
+		$foo = $this->menu->item('foo');
+		$bar = $this->menu->item('bar');
+		$baz = $this->menu->item('baz');
+
+		$result = $this->menu->getItems(function( $item )
+		{
+			return $item->option('key') === 'foo';
+		});
+
+		$this->assertSame( array_values(array($foo)), array_values($result) );
+	}
+
 }
