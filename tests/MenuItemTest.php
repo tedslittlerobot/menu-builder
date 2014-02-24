@@ -429,6 +429,10 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$result = $this->menu->getItems();
 
 		$this->assertSame( array_values(array($baz)), array_values($result) );
+
+		$result = $this->menu->getItems(false);
+
+		$this->assertSame( array_values(array($foo, $bar, $baz)), array_values($result) );
 	}
 
 }
