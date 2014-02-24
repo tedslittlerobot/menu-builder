@@ -374,8 +374,6 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * Check that the add filters function works
-	 * @author Stef Horner (shorner@wearearchitect.com)
-	 * @return [type] [description]
 	 */
 	public function testAddFilters()
 	{
