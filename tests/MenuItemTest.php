@@ -403,4 +403,32 @@ class MenuItemTest extends PHPUnit_Framework_TestCase {
 		$this->assertSame( array_values(array($foo)), array_values($result) );
 	}
 
+	/**
+	 * Check that filters are running on the items by default
+	 */
+	public function testExecuteFilterStack()
+	{
+		$foo = $this->menu->item('foo');
+		$bar = $this->menu->item('bar');
+		$baz = $this->menu->item('baz');
+
+		$this->menu->addFilter(function($item)
+		{
+			return $item->option('key') !== 'foo';
+		});
+
+		$result = $this->menu->getItems();
+
+		$this->assertSame( array_values(array($bar, $baz)), array_values($result) );
+
+		$this->menu->addFilter(function($item)
+		{
+			return $item->option('key') !== 'bar';
+		});
+
+		$result = $this->menu->getItems();
+
+		$this->assertSame( array_values(array($baz)), array_values($result) );
+	}
+
 }
