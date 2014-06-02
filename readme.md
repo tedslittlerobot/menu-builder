@@ -14,7 +14,7 @@ Menu Builder
 Simply require the library like so:
 
 ```bash
-composer require tlr/menu "2.0.*"
+composer require tlr/menu "2.2.*"
 ````
 
 ### Basic Usage
