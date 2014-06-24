@@ -23,7 +23,7 @@ composer require tlr/menu "2.*"
 
 ### Basic Usage
 
-Make a new MenuItem class for your menu:
+Make a new `MenuItem` class for your menu:
 
 ```php
 $menu = new Tlr\Menu\MenuItem;
