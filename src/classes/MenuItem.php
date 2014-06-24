@@ -437,11 +437,19 @@ class MenuItem implements ArrayAccess {
 	 * Add a filter to the filter stack
 	 * @param  Closure $filter
 	 */
-	public function addFilter( $filter )
+	public function addFilter( $filter, $submenus = true )
 	{
 		if (is_callable($filter))
 		{
 			$this->filters[] = $filter;
+
+			if ($submenus)
+			{
+				foreach ($this->items as $item)
+				{
+					$item->addFilter( $filter, $submenus );
+				}
+			}
 		}
 
 		return $this;
