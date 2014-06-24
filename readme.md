@@ -55,7 +55,7 @@ $blog = $menu->item('blog');
 The method signature is as follows:
 
 ```
-$menu->item( $key[, $title = "", $options = arra(), $attributes = array(), $index = $n + 100] )
+$menu->item( $key[, $title = "", $options = array(), $attributes = array(), $index = $n + 100] )
 ```
 
  - `$key` is a string key used to retrieve the item. It is also added, in slugified form, to the class attribute. It is the only required argument.
