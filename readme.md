@@ -107,7 +107,26 @@ $menu->addFilter(function($item) use ($user)
 $menu->getItems();
 ```
 
-If you do not want to filter the items, you can call `$menu->getItems(false)`
+- You don't have to filter an entire menu - you can filter a submenu, too:
+
+```php
+$about->addFilter(function()
+{
+	return $item->isVisible();
+});
+```
+
+- By default, any filters added with `addFilter` get applied to submenus.
+You can override this behaviour by passing false as the second argument:
+
+```php
+$menu->addFilter(function($item) use ($user)
+{
+	return $user->canSeePage( $item );
+}, false);
+```
+
+- If you do not want to filter the items, you can call `$menu->getItems(false)`
 
 ### Activating
 
