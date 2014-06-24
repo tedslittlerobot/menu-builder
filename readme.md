@@ -7,6 +7,10 @@ Menu Builder
 - [Installation](#installation)
 - [Basic Usage](#basic-usage)
 - [Managing Multiple Menus](#managing-multiple-menus)
+- [Filtering Menus](#filters)
+- [Activating Menu Items](#activating)
+
+###### Framework Integrations:
 - [Laravel Integration](#laravel)
 
 ### Installation
@@ -51,7 +55,7 @@ $blog = $menu->item('blog');
 The method signature is as follows:
 
 ```
-$menu->item( $key[, $title, $options, $attributes, $index] )
+$menu->item( $key[, $title = "", $options = arra(), $attributes = array(), $index = $n + 100] )
 ```
 
  - `$key` is a string key used to retrieve the item. It is also added, in slugified form, to the class attribute. It is the only required argument.
@@ -104,6 +108,51 @@ $menu->getItems();
 ```
 
 If you do not want to filter the items, you can call `$menu->getItems(false)`
+
+### Activating
+
+To mark menu items as active, you have a few options:
+
+Say you have this 2 level menu:
+
+```php
+$home = $menu->item( 'home', 'Home', 'http://foo.com' );
+$blog = $menu->item( 'blog', 'Blog', 'http://foo.com/blog' );
+$about = $menu->item( 'about', 'About', 'http://foo.com/about-us' );
+    $contact = $about->item( 'contact', 'Contact Us', 'http://foo.com/contact-us' );
+    $find = $about->item( 'find', 'Find Us', 'http://foo.com/find-us' );
+```
+
+##### Manual Activation
+
+You can manually activate any of those items with the setActive method:
+```php
+$blog->setActive();
+```
+
+##### URL Matching
+
+For a more automated approach, you can recursively mark one of those as activated based on the current URL. For example:
+
+```php
+$menu->activate( $currentUrl );
+```
+
+This would match the given url against each of the menu's items, and mark them as active if the url matches. It also calls each item's children, and marks the parents as active if they have an active child item. ie. activeness bubbles up the chain.
+
+So, if the current URL was `http://foo.com/contact-us`, this would mark the `about` menu item, and its child item, `contact` as active.
+
+##### Advanced
+
+If you want to match based on something different than URL, you can match against anything in a `MenuItem`'s `options` array:
+
+```php
+$home = $menu->item( 'home', 'Home', [ 'link' => 'http://foo.com', 'routename' => 'home' ] );
+$blog = $menu->item( 'blog', 'Blog', [ 'link' => 'http://foo.com/blog', 'routename' => 'blog' ] );
+
+$menu->activate( 'blog', 'routename' );
+```
+
 
 ### Laravel
 
