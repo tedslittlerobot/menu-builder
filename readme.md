@@ -187,7 +187,7 @@ after which, you can access it again later with `Menu::menu( 'nav' )`.
 
 The Laravel version of the class can be echoed out (which will call the `render()` method). This renders the menu using Laravel's blade templating system. You have two options for customising:
 
- -  You can override the Menu Builder views (run `php artisan view:publish tlr/view`, then edit those files).
+ -  You can override the Menu Builder views (run `php artisan view:publish tlr/menu`, then edit those files).
  -  You can pass a view to the parent menu like so. This view will have the `MenuItem` object available as the `$menu` variable:
 
 ```php
