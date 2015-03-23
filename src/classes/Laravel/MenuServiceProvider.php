@@ -8,7 +8,7 @@ class MenuServiceProvider extends ServiceProvider {
 
 	public function boot()
 	{
-		$this->package('tlr/menu');
+		$this->setUpViewPaths();
 
 		$this->app['html']->macro('element', function ( $element = 'div', $attributes = array(), $content = null )
 		{
@@ -39,14 +39,15 @@ class MenuServiceProvider extends ServiceProvider {
 	}
 
 	/**
-	 * Override method for more shallow file structure
-	 * @inheritdoc
+	 * Set up the view paths for the package
 	 */
-	public function guessPackagePath()
+	public function setUpViewPaths()
 	{
-		$path = with(new \ReflectionClass($this))->getFileName();
+		$name = 'menu';
+		$viewPath = realpath( __DIR__.'/../../views' );
 
-		return realpath(dirname($path).'/../../');
+		$this->loadViewsFrom( $viewPath, $name );
+		$publish[$viewPath] = base_path("resources/views/vendor/{$name}");
 	}
 
 }
