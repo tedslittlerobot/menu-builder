@@ -2,7 +2,6 @@
 
 use View;
 use Tlr\Menu\MenuItem as Item;
-use HTML;
 
 class MenuItem extends Item {
 
@@ -32,12 +31,12 @@ class MenuItem extends Item {
 	public function render()
 	{
 		return View::make( $this->view )
-			->with( 'menu', $this );
+			->with( 'menu', $this )->render();
 	}
 
 	public function __toString()
 	{
-		return $this->render()->render();
+		return $this->render();
 	}
 
 	/**
