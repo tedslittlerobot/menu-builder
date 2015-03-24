@@ -17,7 +17,7 @@ class MenuServiceProvider extends ServiceProvider {
 				$attributes[$attribute] = implode(' ', (array)$values);
 			}
 
-			$html = "<{$element}" . $this->app['html']->attributes( $attributes ) . ">";
+			$html = "<{$element}" . $this->attributes( $attributes ) . ">";
 
 			if ( !is_null($content) )
 				$html .= "{$content}</{$element}>";
