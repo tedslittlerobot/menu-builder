@@ -33,6 +33,8 @@ class MenuServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
+		$this->app->register('Collective\Html\HtmlServiceProvider');
+
 		$this->app->singleton( 'menu', function( $app ) {
 			return new MenuRepository( $app );
 		} );
