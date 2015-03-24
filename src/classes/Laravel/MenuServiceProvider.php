@@ -50,6 +50,8 @@ class MenuServiceProvider extends ServiceProvider {
 
 		$this->loadViewsFrom( $viewPath, $name );
 		$publish[$viewPath] = base_path("resources/views/vendor/{$name}");
+
+		$this->publishes( $publish );
 	}
 
 }
