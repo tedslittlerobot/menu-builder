@@ -175,7 +175,7 @@ $menu->activate( 'blog', 'routename' );
 
 ### Laravel
 
-Add `Tlr\Menu\Laravel\MenuServiceProvider` to the `providers` array in Laravel's `app/config/app.php`'s, and add `'Menu' => 'Tlr\Menu\Laravel\MenuFacade'` to the `aliases` array.
+Add `Tlr\Menu\Laravel\MenuServiceProvider` to the `providers` array in Laravel's `config/app.php`'s, and add `'Menu' => 'Tlr\Menu\Laravel\MenuFacade'` to the `aliases` array.
 
 You can then use the `Menu` facade as a shortcut for the `MenuRepository` class, like so:
 ```php
@@ -187,7 +187,7 @@ after which, you can access it again later with `Menu::menu( 'nav' )`.
 
 The Laravel version of the class can be echoed out (which will call the `render()` method). This renders the menu using Laravel's blade templating system. You have two options for customising:
 
- -  You can override the Menu Builder views (run `php artisan view:publish tlr/view`, then edit those files).
+ -  You can override the Menu Builder views (run `php artisan vendor:publish`, then edit those files).
  -  You can pass a view to the parent menu like so. This view will have the `MenuItem` object available as the `$menu` variable:
 
 ```php
